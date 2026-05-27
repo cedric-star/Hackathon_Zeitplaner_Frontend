@@ -1,13 +1,20 @@
-<script>
-import MainView from "./components/views/MainView.vue"
-import {defineComponent} from "vue";
+<script setup>
+import { ref, provide, markRaw, nextTick } from "vue";
+import MainView from "./components/views/MainView.vue";
+import LoginView from "./components/views/LoginView.vue";
 
-export default defineComponent({
-  components: {MainView}
-})
+const showLogin = ref(true);
+const currentDb = ref(null);
+provide("pglite", currentDb);   // ← einmal hier, fertig
 
+async function handleLogin(db) {
+  currentDb.value = markRaw(db);
+  await nextTick();
+  showLogin.value = false;
+}
 </script>
 
 <template>
-  <MainView/>
+  <LoginView v-if="showLogin" @login="handleLogin" />
+  <MainView v-else />
 </template>

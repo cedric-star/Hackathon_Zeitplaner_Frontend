@@ -135,6 +135,25 @@ watch(showTestContainer, (val) => {
         </div>
 
     </div>
+
+    <div id="dashboard-container" >
+      <div class="aero-window" id="dashboard-window" v-if="showTestContainer">
+        <div class="aero-title-bar">
+          <span class="aero-title-icon"></span>
+          <span class="aero-title-bar-text">Aufgaben</span>
+          <div class="aero-title-bar-controls">
+            <button aria-label="Minimize">&#8212;</button>
+            <button aria-label="Maximize">&#9633;</button>
+            <button aria-label="Close" class="close" @click="showTestContainer = false">&#215;</button>
+          </div>
+        </div>
+        <div class="aero-window-body">
+
+          <TaskView v-if="siteState === 1"/>
+
+        </div>
+      </div>
+    </div>
     <Footer id="app-footer"></Footer>
   </div>
 
