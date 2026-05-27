@@ -1,4 +1,4 @@
 # Libraries
 - vue-chartsjs: um dashboard anzuzeigen
 - vue-cal: für kalenderanzeige
-- electricsql pglite vue
+- @electric-sql/pglite-vue: wasm pglite ding für vue
