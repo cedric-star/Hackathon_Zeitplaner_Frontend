@@ -1,59 +1,36 @@
 <script setup>
-import {markRaw, nextTick, provide, ref} from "vue";
+import { ref } from "vue";
 import { getSavedDatabases, createDatabase, openDatabase } from "../../script/dbManager.js";
 
-const showLogin = ref(true);
+const emit = defineEmits(['login'])
 const savedDbs = ref(getSavedDatabases())
 const newUserName = ref("");
-const currentDb = ref(null);
 const errorMsg = ref("");
-provide("pglite", currentDb);
-
-
 
 async function handleCreate() {
-  if (!newUserName.value.trim()) return
-  screen.value = "loading"
+  if (!newUserName.value.trim()) return;
   try {
-    const db = await createDatabase(newUserName.value.trim())
-    await db.waitReady
-
-    currentDb.value = markRaw(db)
-    await nextTick()  // ← warten bis Vue den Render abgeschlossen hat
-    emit('update:showLogin', false);
+    const db = await createDatabase(newUserName.value.trim());
+    await db.waitReady;
+    emit('login', db);          // ← DB direkt mitgeben
   } catch (e) {
-    errorMsg.value = "Fehler: " + e.message
-    emit('update:showLogin', true);
+    errorMsg.value = "Fehler: " + e.message;
   }
 }
 
 async function handleSelect(dbName) {
-  screen.value = "loading"
   try {
-    const db = await openDatabase(dbName)
-    await db.waitReady
-    currentDb.value = markRaw(db)
-    await nextTick()  // ← hier auch
-    emit('update:showLogin', false);
+    const db = await openDatabase(dbName);
+    await db.waitReady;
+    emit('login', db);          // ← DB direkt mitgeben
   } catch (e) {
-    errorMsg.value = "Fehler: " + e.message
-    emit('update:showLogin', true);
+    errorMsg.value = "Fehler: " + e.message;
   }
 }
-
-const props = defineProps({
-  showLogin: Boolean
-})
-const emit = defineEmits(['update:showLogin'])
-const loggedIn = () => {
-  emit('update:showLogin', false);
-}
-
-
 </script>
 
 <template>
-  <div class="aero-window" id="login-window" v-if="showLogin">
+  <div class="aero-window" id="login-window">
     <div class="aero-title-bar">
       <span class="aero-title-icon"></span>
       <span class="aero-title-bar-text">Login</span>

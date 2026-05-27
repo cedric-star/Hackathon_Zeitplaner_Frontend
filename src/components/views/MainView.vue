@@ -9,6 +9,8 @@ import { watch, nextTick } from "vue";
 
 const siteState = ref(0);
 provide("siteState", siteState);
+const props = defineProps({ db: Object });
+provide("pglite", props.db);
 onMounted(() => {
   const main = document.getElementById("nav-window");
   const test = document.getElementById("dashboard-window");
