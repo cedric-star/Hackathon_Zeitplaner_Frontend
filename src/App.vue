@@ -1,18 +1,20 @@
 <script setup>
-import { ref, markRaw } from "vue";
+import { ref, provide, markRaw, nextTick } from "vue";
 import MainView from "./components/views/MainView.vue";
 import LoginView from "./components/views/LoginView.vue";
 
 const showLogin = ref(true);
 const currentDb = ref(null);
+provide("pglite", currentDb);   // ← einmal hier, fertig
 
-function handleLogin(db) {
+async function handleLogin(db) {
   currentDb.value = markRaw(db);
+  await nextTick();
   showLogin.value = false;
 }
 </script>
 
 <template>
   <LoginView v-if="showLogin" @login="handleLogin" />
-  <MainView v-if="!showLogin" :db="currentDb" />
+  <MainView v-else />
 </template>
