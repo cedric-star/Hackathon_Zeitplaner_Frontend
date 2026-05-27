@@ -11,7 +11,7 @@
   "dependencies": {
     "@electric-sql/pglite-vue": "^0.3.6",
     "vue": "^3.5.34",
-    "vue-cal": "^4.10.2",
+    "vue-cal": "^5.0.1-rc.46",
     "vue-chartjs": "^5.3.3"
   },
   "devDependencies": {
