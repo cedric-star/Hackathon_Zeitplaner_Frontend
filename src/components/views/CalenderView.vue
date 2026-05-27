@@ -12,23 +12,18 @@
     dark: true,
   }
 
-  const events = reactive([
-    {
-      start: new Date(),
-      end: new Date().addHours(1),
-      title: 'Event 1'
-    },
-    {
-      start: new Date().addHours(1),
-      end: new Date().addHours(2),
-      title: 'Event 2'
-    },
-    {
-      start: new Date().addDays(1),
-      end: new Date().addDays(1).addHours(1),
-      title: 'Event 3'
-    }
-  ])
+  function transformTaskToEvent(task) {
+    return reactive({
+      start: new Date(task.start),
+      end: new Date(task.end),
+      title: task.title,
+    })
+  }
+
+  let events = [];
+  let tasks = [];
+
+  tasks.forEach(task => { events.push( transformTaskToEvent(task) ); });
 
 </script>
 
