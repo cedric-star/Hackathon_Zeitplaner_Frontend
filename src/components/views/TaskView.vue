@@ -20,18 +20,48 @@ onMounted(async () => {
     console.error("Error loading tasks:", err)
   }
 })
+
+async function loadTasks() {
+  const db = currentDb.value
+  if (!db || !isReady.value) return
+  const result = await db.query(`SELECT * FROM tasks ORDER BY name`)
+  tasks.value = result.rows
+}
+
+async function insertTest() {
+  const db = currentDb.value
+  if (!db || !isReady.value || !name.value.trim()) return
+  await db.query(
+      `INSERT INTO tasks (name, description, start_time, end_time, completed_time, priority)
+     VALUES ($1, 'Plan...', '2024-01-15 09:00:00+01', '2024-01-15 17:00:00+01', '2024-01-15 17:00:00+01', '2')`,
+      [name.value]
+  )
+  await loadTasks()
+  name.value = ""
+}
 </script>
 
 <template>
-  <div class="aero-window" id="login-window">
-    <div class="aero-title-bar">
-      <span class="aero-title-icon"></span>
-      <span class="aero-title-bar-text">Login</span>
 
+  <div v-if="!currentDb">Keine Datenbankverbindung!</div>
+  <div v-else-if="!isReady">Lade Datenbank...</div>
+  <div v-else>
+    <input
+        type="text"
+        placeholder="Event Name"
+        v-model="name"
+        @keyup.enter="insertTest"
+    />
+    <button @click="insertTest">Test Insert</button>
+
+    <div v-if="tasks.length">
+      <div v-for="(task, index) in tasks" :key="index">
+        {{ task.name }}
+      </div>
     </div>
-    <div class="aero-window-body" id="login-body">
-
-      hallo welt
+    <div v-else>
+      Keine Tasks vorhanden.
     </div>
   </div>
+
 </template>
