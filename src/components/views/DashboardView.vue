@@ -1,7 +1,10 @@
 <script setup>
 
-  import {ref} from "vue";
+import {onMounted, ref} from "vue";
   import DraggableCard from "../DraggableCard.vue";
+  import {Chart, registerables} from "chart.js";
+import {createLineChart, createPieChart} from "../../script/chartPresets.js";
+  Chart.register(...registerables);
 
   function dragstartHandler(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
@@ -16,6 +19,17 @@
     const data = ev.dataTransfer.getData("text");
     ev.target.appendChild(document.getElementById(data));
   }
+
+  onMounted(() => {
+
+    const data = [12, 19, 3, 5, 2, 3];
+    const labels = ["Mo","Di","Mi","Do","Fr","Sa"];
+    const title = "Aufgaben pro Tag erledigt"
+
+    createLineChart(title, labels, data, document.getElementById('myChart'));
+    createPieChart(title, labels, data, document.getElementById('myChart2'));
+
+  })
 
 </script>
 
@@ -33,12 +47,10 @@
     </div>
     <div id="droppable-zone-right" v-on:drop="dropHandler" v-on:dragover="dragoverHandler">
       <div id="dragbar2" draggable="true" v-on:dragstart="dragstartHandler">
-        <DraggableCard>
-          Draggisierbar2
-          <template v-slot:content>
-            <br>MyDinge2</br>
-          </template>
-        </DraggableCard>
+        <canvas id="myChart"></canvas>
+      </div>
+      <div id="dragbar3" draggable="true" v-on:dragstart="dragstartHandler">
+        <canvas id="myChart2"></canvas>
       </div>
     </div>
   </div>
