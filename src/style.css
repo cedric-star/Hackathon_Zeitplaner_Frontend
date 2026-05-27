@@ -1,767 +1,730 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+    --text: #6b6375;
+    --text-h: #08060d;
+    --bg: #fff;
+    --border: #e5e4e7;
+    --code-bg: #f4f3ec;
+    --accent: #aa3bff;
+    --accent-bg: rgba(170, 59, 255, 0.1);
+    --accent-border: rgba(170, 59, 255, 0.5);
+    --social-bg: rgba(244, 243, 236, 0.5);
+    --shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+    --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
+    --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+    --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: url('/src/assets/brockenStation.jpg') no-repeat;
-  background-size:     cover;                      /* <------ */
-  background-repeat:   repeat;
-  background-position: center center;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    font: 18px/145% var(--sans);
+    letter-spacing: 0.18px;
+    color-scheme: light dark;
+    color: var(--text);
+    background: url('/src/assets/brockenStation.jpg') no-repeat;
+    background-size: cover; /* <------ */
+    background-repeat: repeat;
+    background-position: center center;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+    @media (max-width: 1024px) {
+        font-size: 16px;
+    }
 }
 
 /* Authentic Frutiger Aero Button CSS */
 .frutiger-aero-button {
-  /* OKLCH Color System for accurate colors */
-  --hue: 245;
-  --sat: 0.16;
-  --glow-intensity: 0.7;
+    /* OKLCH Color System for accurate colors */
+    --hue: 245;
+    --sat: 0.16;
+    --glow-intensity: 0.7;
 
-  /* Color Variables */
-  --fg: oklch(15% calc(var(--sat) * 0.5) var(--hue));
-  --bg: oklch(75% var(--sat) var(--hue) / 0.8);
-  --bg-dark: oklch(45% var(--sat) var(--hue) / 0.75);
-  --bottom-glow: radial-gradient(
-          farthest-corner at bottom center,
-          rgba(255, 255, 255, var(--glow-intensity)),
-          transparent
-  );
+    /* Color Variables */
+    --fg: oklch(15% calc(var(--sat) * 0.5) var(--hue));
+    --bg: oklch(75% var(--sat) var(--hue) / 0.8);
+    --bg-dark: oklch(45% var(--sat) var(--hue) / 0.75);
+    --bottom-glow: radial-gradient(
+            farthest-corner at bottom center,
+            rgba(255, 255, 255, var(--glow-intensity)),
+            transparent
+    );
 
-  /* Base Styling */
-  background-color: var(--bg);
-  background:
-          var(--bottom-glow),
-          linear-gradient(to bottom, var(--bg-dark), var(--bg));
+    /* Base Styling */
+    background-color: var(--bg);
+    background: var(--bottom-glow),
+    linear-gradient(to bottom, var(--bg-dark), var(--bg));
 
-  border: 1px solid var(--bg);
-  border-radius: 9999px;
+    border: 1px solid var(--bg);
+    border-radius: 9999px;
 
-  /* Shadows and Effects */
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    /* Shadows and Effects */
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
 
-  /* Typography */
-  color: var(--fg);
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Segoe UI", system-ui, sans-serif;
-  font-weight: 700;
-  text-shadow: 0 2px 0.5em rgba(0, 0, 0, 0.2);
+    /* Typography */
+    color: var(--fg);
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Segoe UI", system-ui, sans-serif;
+    font-weight: 700;
+    text-shadow: 0 2px 0.5em rgba(0, 0, 0, 0.2);
 
-  /* Layout */
-  cursor: pointer;
-  position: relative;
-  transition: all 300ms ease;
+    /* Layout */
+    cursor: pointer;
+    position: relative;
+    transition: all 300ms ease;
 
-  /* Prevent text selection */
-  user-select: none;
-  -webkit-user-select: none;
+    /* Prevent text selection */
+    user-select: none;
+    -webkit-user-select: none;
 }
-
-
-
-
 
 
 /* Authentic Frutiger Aero Button CSS */
 .frutiger-aero-button {
-  /* OKLCH Color System for accurate colors */
-  --hue: 245;
-  --sat: 0.16;
-  --glow-intensity: 0.7;
+    /* OKLCH Color System for accurate colors */
+    --hue: 245;
+    --sat: 0.16;
+    --glow-intensity: 0.7;
 
-  /* Color Variables */
-  --fg: oklch(15% calc(var(--sat) * 0.5) var(--hue));
-  --bg: oklch(75% var(--sat) var(--hue) / 0.8);
-  --bg-dark: oklch(45% var(--sat) var(--hue) / 0.75);
-  --bottom-glow: radial-gradient(
-          farthest-corner at bottom center,
-          rgba(255, 255, 255, var(--glow-intensity)),
-          transparent
-  );
+    /* Color Variables */
+    --fg: oklch(15% calc(var(--sat) * 0.5) var(--hue));
+    --bg: oklch(75% var(--sat) var(--hue) / 0.8);
+    --bg-dark: oklch(45% var(--sat) var(--hue) / 0.75);
+    --bottom-glow: radial-gradient(
+            farthest-corner at bottom center,
+            rgba(255, 255, 255, var(--glow-intensity)),
+            transparent
+    );
 
-  /* Base Styling */
-  background-color: var(--bg);
-  background:
-          var(--bottom-glow),
-          linear-gradient(to bottom, var(--bg-dark), var(--bg));
+    /* Base Styling */
+    background-color: var(--bg);
+    background: var(--bottom-glow),
+    linear-gradient(to bottom, var(--bg-dark), var(--bg));
 
-  border: 1px solid var(--bg);
-  border-radius: 9999px;
+    border: 1px solid var(--bg);
+    border-radius: 9999px;
 
-  /* Shadows and Effects */
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
+    /* Shadows and Effects */
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.4);
 
-  /* Typography */
-  color: var(--fg);
-  font-family: "Lucida Grande", "Lucida Sans Unicode", "Segoe UI", system-ui, sans-serif;
-  font-weight: 700;
-  text-shadow: 0 2px 0.5em rgba(0, 0, 0, 0.2);
+    /* Typography */
+    color: var(--fg);
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Segoe UI", system-ui, sans-serif;
+    font-weight: 700;
+    text-shadow: 0 2px 0.5em rgba(0, 0, 0, 0.2);
 
-  /* Layout */
-  cursor: pointer;
-  position: relative;
-  transition: all 300ms ease;
+    /* Layout */
+    cursor: pointer;
+    position: relative;
+    transition: all 300ms ease;
 
-  /* Prevent text selection */
-  user-select: none;
-  -webkit-user-select: none;
+    /* Prevent text selection */
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 /* Top Highlight Effect */
 .frutiger-aero-button::after {
-  content: "";
-  position: absolute;
-  top: 4%;
-  left: 0.75em;
-  width: calc(100% - 1.5em);
-  height: 40%;
-  background: linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.8),
-          rgba(255, 255, 255, 0.1)
-  );
-  border-radius: inherit;
-  transition: background 400ms ease;
-  pointer-events: none;
+    content: "";
+    position: absolute;
+    top: 4%;
+    left: 0.75em;
+    width: calc(100% - 1.5em);
+    height: 40%;
+    background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.8),
+            rgba(255, 255, 255, 0.1)
+    );
+    border-radius: inherit;
+    transition: background 400ms ease;
+    pointer-events: none;
 }
 
 /* Hover State */
 .frutiger-aero-button:hover,
 .frutiger-aero-button:focus {
-  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
-  transform: translateY(-1px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.4);
+    transform: translateY(-1px);
 }
 
 /* Active State */
 .frutiger-aero-button:active {
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  transform: translateY(1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transform: translateY(1px);
 }
 
 /* Size Variations */
 .frutiger-aero-button.small {
-  padding: 0.5em 1.5em;
-  font-size: 0.875rem;
+    padding: 0.5em 1.5em;
+    font-size: 0.875rem;
 }
 
 .frutiger-aero-button.medium {
-  padding: 0.75em 2em;
-  font-size: 1rem;
+    padding: 0.75em 2em;
+    font-size: 1rem;
 }
 
 .frutiger-aero-button.large {
-  padding: 1em 3em;
-  font-size: 1.125rem;
+    padding: 1em 3em;
+    font-size: 1.125rem;
 }
 
-
-#main-container {
-  position: absolute;
-  z-index: 9;
-
-  text-align: center;
-  left: 40%;
-  transform: translateX(-50%);
-
-  width: 33%;
-
+.main-container {
+    width: 50%;
+    height: 40%;
+    z-index: 12;
 }
 
-#dashboard-container {
-  position: absolute;
-  z-index: 7;
-
-  text-align: center;
-  left: 70%;
-  transform: translateX(-50%);
-
-  width: 33%;
-
-}
-/*
-#mydiv {
-
-  text-align: center;
-
+.dashboard-container {
+    height: 50%;
+    width: 33%;
+    z-index: 5;
 }
 
-#mydivheader {
-  padding: 10px;
-  cursor: move;
-  z-index: 10;
-  background-color: #2196F3;
-  color: #fff;
+.glas {
+    position: absolute;
+    color: white;
+    background: rgba(84, 84, 90, 0.23);
+    backdrop-filter: blur(5px);
+    border-radius: 6px;
+    text-align: center;
+    left: 40%;
+    transform: translateX(-50%);
+    box-shadow: inset 0 0 6px rgb(255 255 255 / 0.29), rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+    background: linear-gradient(
+            54deg,
+            rgba(0, 0, 0, 0.13) 0 4%, rgba(102, 102, 102, 0.07) 6%, rgba(0, 0, 0, 0.13) 8% 10%,
+            rgba(0, 0, 0, 0.13) 15% 16%, rgba(170, 170, 170, 0.07) 17% 18%, rgba(0, 0, 0, 0.13) 23% 24%,
+            rgba(187, 187, 187, 0.13) 25% 26%, rgba(0, 0, 0, 0.13) 31% 33%,
+            rgba(0, 0, 0, 0.13) 34% 34.5%, rgba(187, 187, 187, 0.13) 36% 40%,
+            rgba(0, 0, 0, 0.13) 41% 41.5%, rgba(187, 187, 187, 0.13) 44% 45%,
+            rgba(187, 187, 187, 0.13) 46% 47%, rgba(0, 0, 0, 0.13) 48% 49%, rgba(0, 0, 0, 0.13) 50% 50.5%,
+            rgba(0, 0, 0, 0.13) 56% 56.5%, rgba(187, 187, 187, 0.13) 57% 63%, rgba(0, 0, 0, 0.13) 67% 69%,
+            rgba(187, 187, 187, 0.13) 69.5% 70%, rgba(0, 0, 0, 0.13) 73.5% 74%,
+            rgba(187, 187, 187, 0.13) 74.5% 79%, rgba(0, 0, 0, 0.13) 80% 84%,
+            rgba(170, 170, 170, 0.13) 85% 86%, rgba(0, 0, 0, 0.13) 87%, rgba(187, 187, 187, 0.07) 90%
+    ) left center / 100vw 100vh no-repeat fixed;
 }
-*/
 
 #navbar-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem;
-  gap: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin: 1rem;
+    gap: 0.5rem;
 }
+
+
 button {
-  border: solid 1.5px cornflowerblue;
-  border-radius: 5px;
-  color: black;
-  background-color: white;
+    border: solid 1.5px cornflowerblue;
+    border-radius: 5px;
+    color: black;
+    background-color: white;
 }
 
 button:hover {
-  background-color: cornflowerblue;
-  border-color: white;
-  color: white;
+    background-color: cornflowerblue;
+    border-color: white;
+    color: white;
 }
-
 
 
 html, body {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
 }
+
 /* Windows 7 Aero Glass Window CSS */
 /* Based on 7.css — https://github.com/khang-nd/7.css */
 
 .aero-window {
-  font-family: "Segoe UI", "SegoeUI", "Noto Sans", sans-serif;
-  font-size: 9pt;
-  width: 630px;
-  border: 1px solid rgba(0, 0, 0, 0.7);
-  border-radius: 5px;
-  box-shadow:
-          2px 2px 10px 1px rgba(0, 0, 0, 0.7),
-          inset 0 0 0 1px rgba(255, 255, 255, 0.98);
-  position: relative;
-  z-index: 0;
+    font-family: "Segoe UI", "SegoeUI", "Noto Sans", sans-serif;
+    font-size: 9pt;
+    width: 630px;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.98);
+    position: relative;
+    z-index: 0;
 }
 
 /* Full-window colored glass layer */
 .aero-window::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  background:
-          linear-gradient(transparent 20%, rgba(255, 255, 255, 0.7) 40%, transparent 41%),
-          linear-gradient(to right, rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.2)),
-          hsl(210, 55%, 45%);
-  background-color: hsl(210, 55%, 45%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.99);
-  opacity: 0.55;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+
+    background-color: hsl(210, 55%, 45%);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.99);
+    opacity: 0.55;
 }
 
 /* Blur backdrop */
 .aero-window::after {
-  content: "";
-  position: absolute;
-  z-index: -10;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
-  backdrop-filter: blur(4px);
+    content: "";
+    position: absolute;
+    z-index: -10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 5px;
+    backdrop-filter: blur(4px);
 }
 
 /* Title bar — authentic diagonal glass stripe texture */
 .aero-title-bar {
-  padding: 6px;
-  padding-top: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 5px 5px 0 0;
-  box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 0.99),
-          inset 1px 0 0 rgba(255, 255, 255, 0.99),
-          inset -1px 0 0 rgba(255, 255, 255, 0.99);
-  background:
-          linear-gradient(135deg, rgba(255, 255, 255, 0.33) 70px, transparent 100px),
-          linear-gradient(225deg, rgba(255, 255, 255, 0.33) 70px, transparent 100px),
-          linear-gradient(
-                  54deg,
-                  rgba(0,0,0,0.13) 0 4%, rgba(102,102,102,0.07) 6%, rgba(0,0,0,0.13) 8% 10%,
-                  rgba(0,0,0,0.13) 15% 16%, rgba(170,170,170,0.07) 17% 18%, rgba(0,0,0,0.13) 23% 24%,
-                  rgba(187,187,187,0.13) 25% 26%, rgba(0,0,0,0.13) 31% 33%,
-                  rgba(0,0,0,0.13) 34% 34.5%, rgba(187,187,187,0.13) 36% 40%,
-                  rgba(0,0,0,0.13) 41% 41.5%, rgba(187,187,187,0.13) 44% 45%,
-                  rgba(187,187,187,0.13) 46% 47%, rgba(0,0,0,0.13) 48% 49%, rgba(0,0,0,0.13) 50% 50.5%,
-                  rgba(0,0,0,0.13) 56% 56.5%, rgba(187,187,187,0.13) 57% 63%, rgba(0,0,0,0.13) 67% 69%,
-                  rgba(187,187,187,0.13) 69.5% 70%, rgba(0,0,0,0.13) 73.5% 74%,
-                  rgba(187,187,187,0.13) 74.5% 79%, rgba(0,0,0,0.13) 80% 84%,
-                  rgba(170,170,170,0.13) 85% 86%, rgba(0,0,0,0.13) 87%, rgba(187,187,187,0.07) 90%
-          ) left center / 100vw 100vh no-repeat fixed;
+    padding: 6px;
+    padding-top: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.99),
+    inset 1px 0 0 rgba(255, 255, 255, 0.99),
+    inset -1px 0 0 rgba(255, 255, 255, 0.99);
+
 }
 
 /* Title icon */
 .aero-title-icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 4px;
-  padding-top: 6px;
-  flex-shrink: 0;
-  display: block;
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    padding-top: 6px;
+    flex-shrink: 0;
+    display: block;
 }
 
 /* Title text — black with white glow for glass legibility */
 .aero-title-bar-text {
-  color: #000000;
-  letter-spacing: 0;
-  line-height: 15px;
-  padding-top: 6px;
-  text-shadow:
-          0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff,
-          0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
-  flex: 1;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    color: #000000;
+    letter-spacing: 0;
+    line-height: 15px;
+    padding-top: 6px;
+    text-shadow: 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff,
+    0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff, 0 0 10px #fff;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* Window controls strip — capsule hanging from top */
 .aero-title-bar-controls {
-  display: flex;
-  background: rgba(255, 255, 255, 0.2);
-  border: 1px solid rgba(0, 0, 0, 0.3);
-  border-top: 0;
-  border-radius: 0 0 5px 5px;
-  box-shadow:
-          0 1px 0 rgba(255, 255, 255, 0.98),
-          1px 0 0 rgba(255, 255, 255, 0.98),
-          -1px 0 0 rgba(255, 255, 255, 0.98);
+    display: flex;
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-top: 0;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.98),
+    1px 0 0 rgba(255, 255, 255, 0.98),
+    -1px 0 0 rgba(255, 255, 255, 0.98);
 }
 
 .aero-title-bar-controls button {
-  position: relative;
-  min-width: 29px;
-  min-height: 21px;
-  padding: 0;
-  border: 0;
-  border-right: 1px solid rgba(0, 0, 0, 0.3);
-  border-radius: 0;
-  box-sizing: border-box;
-  cursor: pointer;
-  font-size: 13px;
-  line-height: 1;
-  color: rgba(0, 0, 0, 0.65);
-  text-shadow: 0 0 3px rgba(255, 255, 255, 0.9), 0 1px 0 rgba(255, 255, 255, 0.8);
-  background: linear-gradient(
-          rgba(255, 255, 255, 0.5),
-          rgba(255, 255, 255, 0.3) 45%,
-          rgba(0, 0, 0, 0.1) 50%,
-          rgba(0, 0, 0, 0.1) 75%,
-          rgba(255, 255, 255, 0.5)
-  );
-  transition: box-shadow 0.1s;
+    position: relative;
+    min-width: 29px;
+    min-height: 21px;
+    padding: 0;
+    border: 0;
+    border-right: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 0;
+    box-sizing: border-box;
+    cursor: pointer;
+    font-size: 13px;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.65);
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.9), 0 1px 0 rgba(255, 255, 255, 0.8);
+    background: linear-gradient(
+            rgba(255, 255, 255, 0.5),
+            rgba(255, 255, 255, 0.3) 45%,
+            rgba(0, 0, 0, 0.1) 50%,
+            rgba(0, 0, 0, 0.1) 75%,
+            rgba(255, 255, 255, 0.5)
+    );
+    transition: box-shadow 0.1s;
 }
 
 .aero-title-bar-controls button:first-child {
-  border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
 }
 
 .aero-title-bar-controls button:last-child {
-  border-right: 0;
-  border-bottom-right-radius: 5px;
-  min-width: 48px;
+    border-right: 0;
+    border-bottom-right-radius: 5px;
+    min-width: 48px;
 }
 
 /* Hover — cyan radial glow */
 .aero-title-bar-controls button:not(.close):hover {
-  background:
-          radial-gradient(circle at bottom, #2aceda, transparent 65%),
-          linear-gradient(#b6d9ee 50%, #1a6ca1 50%);
-  box-shadow: 0 0 7px 3px #5dc4f0, inset 0 0 0 1px rgba(255, 255, 255, 0.98);
-  color: white;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    background: radial-gradient(circle at bottom, #2aceda, transparent 65%),
+    linear-gradient(#b6d9ee 50%, #1a6ca1 50%);
+    box-shadow: 0 0 7px 3px #5dc4f0, inset 0 0 0 1px rgba(255, 255, 255, 0.98);
+    color: white;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
 }
 
 .aero-title-bar-controls button:not(.close):active {
-  background:
-          radial-gradient(circle at bottom, #0bfdfa, transparent 65%),
-          linear-gradient(#86a7bc 50%, #092747 50%);
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.98);
+    background: radial-gradient(circle at bottom, #0bfdfa, transparent 65%),
+    linear-gradient(#86a7bc 50%, #092747 50%);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.98);
 }
 
 /* Close button */
 .aero-title-bar-controls button.close {
-  color: white;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-  background:
-          radial-gradient(circle at -60% 50%, rgba(0, 0, 0, 0.44) 5% 10%, transparent 50%),
-          radial-gradient(circle at 160% 50%, rgba(0, 0, 0, 0.44) 5% 10%, transparent 50%),
-          linear-gradient(rgba(224, 161, 151, 0.9), #cf796a 25% 50%, #d54f36 50%);
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+    background: radial-gradient(circle at -60% 50%, rgba(0, 0, 0, 0.44) 5% 10%, transparent 50%),
+    radial-gradient(circle at 160% 50%, rgba(0, 0, 0, 0.44) 5% 10%, transparent 50%),
+    linear-gradient(rgba(224, 161, 151, 0.9), #cf796a 25% 50%, #d54f36 50%);
 }
 
 .aero-title-bar-controls button.close:hover {
-  background:
-          radial-gradient(circle at bottom, #ff8a7a, transparent 65%),
-          linear-gradient(#ffbdb3 50%, #d40000 50%);
-  box-shadow: 0 0 7px 3px #ff5030, inset 0 0 0 1px rgba(255, 255, 255, 0.98);
-  color: white;
+    background: radial-gradient(circle at bottom, #ff8a7a, transparent 65%),
+    linear-gradient(#ffbdb3 50%, #d40000 50%);
+    box-shadow: 0 0 7px 3px #ff5030, inset 0 0 0 1px rgba(255, 255, 255, 0.98);
+    color: white;
 }
 
 .aero-title-bar-controls button.close:active {
-  background:
-          radial-gradient(circle at bottom, #ff3300, transparent 65%),
-          linear-gradient(#d45050 50%, #8b0000 50%);
+    background: radial-gradient(circle at bottom, #ff3300, transparent 65%),
+    linear-gradient(#d45050 50%, #8b0000 50%);
 }
 
 /* Window body — solid #f0f0f0 surface, inset 6px from glass border */
 .aero-window-body {
-  margin: 6px;
-  margin-top: 0;
-  border: 1px solid rgba(0, 0, 0, 0.7);
-  background: #f0f0f0;
-  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6);
-  padding: 6px;
+    margin: 6px;
+    margin-top: 0;
+    padding: 6px;
 }
 
 
 footer {
-  width: 100%;
-  height: 1rem;
-  padding: 2rem;
-  box-sizing: border-box;
-  backdrop-filter: blur(5px);
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  flex-shrink: 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(30, 80, 140, 0.6);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.4);
-  background: linear-gradient(to bottom,
-  rgba(255,255,255,0.8) 0%,
-  rgba(160,210,240,0.6) 30%,
-  rgba(60,130,200,0.8) 60%,
-  rgba(20,60,120,0.95) 100%
-  );
-  display: flex;
- color: white;
+    width: 100%;
+    height: 1rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(5px);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(30, 80, 140, 0.6);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    background: linear-gradient(to bottom,
+    rgba(255, 255, 255, 0.8) 0%,
+    rgba(160, 210, 240, 0.6) 30%,
+    rgba(60, 130, 200, 0.8) 60%,
+    rgba(20, 60, 120, 0.95) 100%
+    );
+    display: flex;
+    color: white;
 
 
 }
 
 .footer-left, .footer-right {
-  gap: 2rem;
-  display: flex;
-  align-items: center;
+    gap: 2rem;
+    display: flex;
+    align-items: center;
 }
 
 
 .example-div {
-  background: linear-gradient(to bottom,
-  #c8ffc5 0%,
-  #1fbf24 55%,
-  #009a05 55%,
-  #457a28 100%
-  );
-  border: 1px solid black;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  height: 30px;
+    background: linear-gradient(to bottom,
+    #c8ffc5 0%,
+    #1fbf24 55%,
+    #009a05 55%,
+    #457a28 100%
+    );
+    border: 1px solid black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    height: 30px;
 }
-
-
 
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+    :root {
+        --text: #9ca3af;
+        --text-h: #f3f4f6;
+        --bg: #16171d;
+        --border: #2e303a;
+        --code-bg: #1f2028;
+        --accent: #c084fc;
+        --accent-bg: rgba(192, 132, 252, 0.15);
+        --accent-border: rgba(192, 132, 252, 0.5);
+        --social-bg: rgba(47, 48, 58, 0.5);
+        --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
+    }
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+    #social .button-icon {
+        filter: invert(1) brightness(2);
+    }
 }
 
 body {
-  margin: 0;
+    margin: 0;
 }
 
 h1,
 h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+    font-family: var(--heading);
+    font-weight: 500;
+    color: var(--text-h);
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+    font-size: 56px;
+    letter-spacing: -1.68px;
+    margin: 32px 0;
+    @media (max-width: 1024px) {
+        font-size: 36px;
+        margin: 20px 0;
+    }
 }
+
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+    font-size: 24px;
+    line-height: 118%;
+    letter-spacing: -0.24px;
+    margin: 0 0 8px;
+    @media (max-width: 1024px) {
+        font-size: 20px;
+    }
 }
+
 p {
-  margin: 0;
+    margin: 0;
 }
 
 code,
 .counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+    font-family: var(--mono);
+    display: inline-flex;
+    border-radius: 4px;
+    color: var(--text-h);
 }
 
 code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+    font-size: 15px;
+    line-height: 135%;
+    padding: 4px 8px;
+    background: var(--code-bg);
 }
 
 .counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: url('/src/assets/brockenStation.jpg') no-repeat;
-  background-size:     cover;                      /* <------ */
-  background-repeat:   no-repeat;
-  background-position: center center;
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: var(--accent);
+    background: url('/src/assets/brockenStation.jpg') no-repeat;
+    background-size: cover; /* <------ */
+    background-repeat: no-repeat;
+    background-position: center center;
+    border: 2px solid transparent;
+    transition: border-color 0.3s;
+    margin-bottom: 24px;
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+    &:hover {
+        border-color: var(--accent-border);
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+    }
 }
 
 .hero {
-  position: relative;
-
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
-
-  .base {
-    width: 170px;
     position: relative;
-    z-index: 0;
-  }
 
-  .framework,
-  .vite {
-    position: absolute;
-  }
+    .base,
+    .framework,
+    .vite {
+        inset-inline: 0;
+        margin: 0 auto;
+    }
 
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
+    .base {
+        width: 170px;
+        position: relative;
+        z-index: 0;
+    }
 
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+    .framework,
+    .vite {
+        position: absolute;
+    }
+
+    .framework {
+        z-index: 1;
+        top: 34px;
+        height: 28px;
+        transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg) scale(1.4);
+    }
+
+    .vite {
+        z-index: 0;
+        top: 107px;
+        height: 26px;
+        width: auto;
+        transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg) scale(0.8);
+    }
 }
 
 #app {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
- /* border-inline: 1px solid white;*/
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+    width: 1126px;
+    max-width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    /* border-inline: 1px solid white;*/
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
 
 }
 
 #center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    place-content: center;
+    place-items: center;
+    flex-grow: 1;
 
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+    @media (max-width: 1024px) {
+        padding: 32px 20px 24px;
+        gap: 18px;
+    }
 }
 
 #next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
+    display: flex;
+    border-top: 1px solid var(--border);
+    text-align: left;
 
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
+    & > div {
+        flex: 1 1 0;
+        padding: 32px;
+        @media (max-width: 1024px) {
+            padding: 24px 20px;
+        }
     }
-  }
 
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
+    .icon {
+        margin-bottom: 16px;
+        width: 22px;
+        height: 22px;
+    }
 
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+    @media (max-width: 1024px) {
+        flex-direction: column;
+        text-align: center;
+    }
 }
 
 #docs {
-  border-right: 1px solid var(--border);
+    border-right: 1px solid var(--border);
 
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+    @media (max-width: 1024px) {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
+    }
 }
 
 #next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
+    list-style: none;
+    padding: 0;
     display: flex;
-    padding: 6px 12px;
-    align-items: center;
     gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
+    margin: 32px 0 0;
 
-    &:hover {
-      box-shadow: var(--shadow);
-    }
-    .button-icon {
-      height: 18px;
-      width: 18px;
-    }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
+    .logo {
+        height: 18px;
     }
 
     a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
+        color: var(--text-h);
+        font-size: 16px;
+        border-radius: 6px;
+        background: var(--social-bg);
+        display: flex;
+        padding: 6px 12px;
+        align-items: center;
+        gap: 8px;
+        text-decoration: none;
+        transition: box-shadow 0.3s;
+
+        &:hover {
+            box-shadow: var(--shadow);
+        }
+
+        .button-icon {
+            height: 18px;
+            width: 18px;
+        }
     }
-  }
+
+    @media (max-width: 1024px) {
+        margin-top: 20px;
+        flex-wrap: wrap;
+        justify-content: center;
+
+        li {
+            flex: 1 1 calc(50% - 8px);
+        }
+
+        a {
+            width: 100%;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+    }
 }
 
 #spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+    height: 88px;
+    border-top: 1px solid var(--border);
+    @media (max-width: 1024px) {
+        height: 48px;
+    }
 }
 
 .ticks {
-  position: relative;
-  width: 100%;
+    position: relative;
+    width: 100%;
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        top: -4.5px;
+        border: 5px solid transparent;
+    }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+    &::before {
+        left: 0;
+        border-left-color: var(--border);
+    }
+
+    &::after {
+        right: 0;
+        border-right-color: var(--border);
+    }
 }
