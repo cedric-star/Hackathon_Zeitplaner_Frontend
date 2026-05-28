@@ -33,9 +33,13 @@ onBeforeMount(async () => {
   await db.waitReady
   tasks.value = await getTasks(currentDb.value);
 
-  events.value = tasks.value
-      .filter(task => task.start_time && task.end_time)
-      .map(task => task2Event(task));
+  await db.live.query(
+      `SELECT * FROM tasks WHERE start_time IS NOT NULL AND end_time IS NOT NULL`,
+      [],
+      (results) => {
+        events.value = results.rows.map(task => task2Event(task));
+      }
+  );
 })
 </script>
 
