@@ -129,7 +129,9 @@ function removeSubTask(index) {
         {{ task.name }}
       </div>
     </div>
-    <div v-else>Keine Tasks vorhanden.</div>
+    <div v-else>
+      Keine Tasks vorhanden.
+    </div>
   </div>
 
 </template>
