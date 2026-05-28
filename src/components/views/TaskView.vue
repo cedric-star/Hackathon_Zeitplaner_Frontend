@@ -59,6 +59,21 @@ function addSubTask() {
 function removeSubTask(index) {
   newTask.value.sub_tasks.splice(index, 1)
 }
+
+async function deleteTask(name) {
+  const db = currentDb.value;
+  if (!db) return;
+
+  try {
+    await db.query(`DELETE FROM tasks WHERE name = $1`, [name]);  // ✅ Komma und await
+    await loadTasks();  // ✅ Tasks neu laden
+    console.log(`Task "${name}" erfolgreich gelöscht`);
+  } catch (error) {
+    console.error("Fehler beim Löschen:", error);
+    // Optional: Fehlermeldung anzeigen
+    errors.value.delete = error.message;
+  }
+}
 </script>
 
 <template>
@@ -127,21 +142,28 @@ function removeSubTask(index) {
     <div v-if="tasks.length">
       <div class="task-list">
         <table>
-          <tr>
-            <th>Task Name</th>
-            <th>Description</th>
-            <th>Priority</th>
+          <thead>
+            <tr>
+              <th>Task Name</th>
+              <th>Description</th>
+              <th>Priority</th>
+              <th>Löschen</th>
 
-          </tr>
-          <tr
-              v-for="task in tasks"
-          >
-            <td class="task-name">{{ task.name }}</td>
-            <td class="task-row">{{ task.description }}</td>
-            <td class="task-priority">{{ task.priority }}</td>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr
+                v-for="task in tasks"
+            >
+              <td class="task-name">{{ task.name }}</td>
+              <td class="task-row">{{ task.description }}</td>
+              <td class="task-priority">{{ task.priority }}</td>
+              <td class="task-row " ><button @click="deleteTask(task.name)" class="glas-button-small">Löschen</button></td>
 
 
-          </tr>
+            </tr>
+          </tbody>
         </table>
 
       </div>
