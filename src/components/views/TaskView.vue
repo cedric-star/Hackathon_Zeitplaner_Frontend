@@ -1,6 +1,7 @@
 <script setup>
 import { ref, inject, onMounted } from "vue"
-import { getTasks, insertTask, insertTestData } from "../../script/getData.js"
+import { getTasks, insertTask, updateTask } from "../../script/getData.js"
+import TaskForm from "../TaskForm.vue"
 
 const currentDb = inject("pglite")
 const tasks = ref([])
@@ -8,7 +9,7 @@ const isReady = ref(false)
 const inserting = ref(false)
 const errors = ref({})
 
-const newTask = ref({
+const emptyTask = () => ({
   name: "",
   description: "",
   priority: "1",
@@ -18,6 +19,12 @@ const newTask = ref({
   tags: [],
   sub_tasks: []
 })
+
+const newTask = ref(emptyTask())
+
+// Tracks which task row is expanded for editing (by name or id)
+const editingTask = ref(null)   // stores the task name/id being edited
+const editData = ref({})        // stores the live form data for the edited task
 
 onMounted(async () => {
   const db = currentDb.value
@@ -31,146 +38,154 @@ async function loadTasks() {
   tasks.value = await getTasks(currentDb.value)
 }
 
-async function handleSaveNew() {
+// ── Insert ──────────────────────────────────────────────
+async function handleSaveNew(payload) {
   errors.value = {}
-  const payload = {
-    ...newTask.value
-  }
   const result = await insertTask(currentDb.value, payload)
   if (result?.errors) {
     errors.value = result.errors
     return
   }
-  newTask.value = { name: "", description: "", priority: "1", start_time: "", end_time: "", completed_time: null, tags: [], sub_tasks: [] }
+  newTask.value = emptyTask()
   inserting.value = false
   await loadTasks()
 }
 
-function addTag() {
-  newTask.value.tags.push({ name: "", color: "#000000" })
-}
-function removeTag(index) {
-  newTask.value.tags.splice(index, 1)
-}
-
-function addSubTask() {
-  newTask.value.sub_tasks.push({ name: "" })
-}
-function removeSubTask(index) {
-  newTask.value.sub_tasks.splice(index, 1)
+// ── Edit / Update ────────────────────────────────────────
+function openEdit(task) {
+  // Toggle: clicking the same row again closes it
+  if (editingTask.value === task.name) {
+    editingTask.value = null
+    return
+  }
+  editingTask.value = task.name
+  // Deep-copy so the form doesn't mutate the table directly
+  editData.value = JSON.parse(JSON.stringify(task))
 }
 
+function cancelEdit() {
+  editingTask.value = null
+}
+
+async function handleUpdate(payload) {
+  errors.value = {}
+  // updateTask should accept the full payload and identify the row by name/id
+  const result = await updateTask(currentDb.value, payload)
+  if (result?.errors) {
+    errors.value = result.errors
+    return
+  }
+  editingTask.value = null
+  await loadTasks()
+}
+
+// ── Delete ───────────────────────────────────────────────
 async function deleteTask(name) {
-  const db = currentDb.value;
-  if (!db) return;
-
+  const db = currentDb.value
+  if (!db) return
   try {
-    await db.query(`DELETE FROM tasks WHERE name = $1`, [name]);  // ✅ Komma und await
-    await loadTasks();  // ✅ Tasks neu laden
-    console.log(`Task "${name}" erfolgreich gelöscht`);
+    await db.query(`DELETE FROM tasks WHERE name = $1`, [name])
+    if (editingTask.value === name) editingTask.value = null
+    await loadTasks()
   } catch (error) {
-    console.error("Fehler beim Löschen:", error);
-    // Optional: Fehlermeldung anzeigen
-    errors.value.delete = error.message;
+    console.error("Fehler beim Löschen:", error)
+    errors.value.delete = error.message
   }
 }
 </script>
 
 <template>
-
   <div v-if="!currentDb">Keine Datenbankverbindung!</div>
   <div v-else-if="!isReady">Lade Datenbank...</div>
   <div v-else>
-    <button class="glas-button-small" v-if="!inserting" @click="inserting = true">Neue Aufgabe</button>
+
+    <!-- ── Neue Aufgabe ── -->
+    <button class="glas-button-small" v-if="!inserting" @click="inserting = true">
+      Neue Aufgabe
+    </button>
+
     <div v-else>
-
-      <!-- Name -->
-      <div>
-        <input class="glas-input" type="text" placeholder="Name *" v-model="newTask.name" />
-        <span v-if="errors.name" style="color:red"> {{ errors.name }}</span>
-      </div>
-
-      <!-- Beschreibung -->
-      <div>
-        <textarea class="glas-input" placeholder="Beschreibung *" v-model="newTask.description" />
-        <span v-if="errors.description" style="color:red"> {{ errors.description }}</span>
-      </div>
-
-      <!-- Priorität -->
-      <div>
-        <select class="glas-button-small" v-model="newTask.priority">
-          <option value="1">1 – Niedrig</option>
-          <option value="2">2</option>
-          <option value="3">3 – Mittel</option>
-          <option value="4">4</option>
-          <option value="5">5 – Hoch</option>
-        </select>
-      </div>
-
-      <!-- Zeiten -->
-      <div>
-        <label>Start: <input class="glas-input" type="datetime-local" v-model="newTask.start_time" /></label>
-        <label>Ende: <input class="glas-input" type="datetime-local" v-model="newTask.end_time" /></label>
-      </div>
-
-      <!-- Tags -->
-      <div>
-        <strong>Tags</strong>
-        <div v-for="(tag, i) in newTask.tags" :key="i">
-          <input class="glas-input" type="text" placeholder="Tag-Name" v-model="tag.name" />
-          <input class="glas-input" type="color" v-model="tag.color" />
-          <button @click="removeTag(i)">✕</button>
-        </div>
-        <button class="glas-button-small" @click="addTag">+ Tag hinzufügen</button>
-      </div>
-
-      <!-- Sub-Tasks -->
-      <div>
-        <strong>Unteraufgaben</strong>
-        <div v-for="(sub, i) in newTask.sub_tasks" :key="i">
-          <input class="glas-input" type="text" placeholder="Unteraufgabe" v-model="sub.name" />
-          <button class="glas-button-small" @click="removeSubTask(i)">✕</button>
-        </div>
-        <button class="glas-button-small" @click="addSubTask">+ Unteraufgabe hinzufügen</button>
-      </div>
-
-      <br />
-      <button class="glas-button-small" @click="handleSaveNew">Speichern</button>
-      <button class="glas-button-small" @click="inserting = false">Abbrechen</button>
+      <TaskForm
+          v-model="newTask"
+          :errors="errors"
+          submit-label="Erstellen"
+          @submit="handleSaveNew"
+          @cancel="inserting = false; errors = {}"
+      />
     </div>
 
-    <div v-if="tasks.length">
-      <div class="task-list">
-        <table>
-          <thead>
-            <tr>
-              <th>Task Name</th>
-              <th>Description</th>
-              <th>Priority</th>
-              <th>Löschen</th>
+    <!-- ── Task-Tabelle ── -->
+    <div v-if="tasks.length" class="task-list">
+      <table>
+        <thead>
+        <tr>
+          <th></th>
+          <th>Task Name</th>
+          <th>Beschreibung</th>
+          <th>Priorität</th>
+          <th>Löschen</th>
+        </tr>
+        </thead>
 
-            </tr>
-          </thead>
+        <tbody>
+        <template v-for="task in tasks" :key="task.name">
 
-          <tbody>
-            <tr
-                v-for="task in tasks"
-            >
-              <td class="task-name">{{ task.name }}</td>
-              <td class="task-row">{{ task.description }}</td>
-              <td class="task-priority">{{ task.priority }}</td>
-              <td class="task-row " ><button @click="deleteTask(task.name)" class="glas-button-small">Löschen</button></td>
+          <!-- Normale Zeile -->
+          <tr>
+            <td>
+              <button
+                  class="glas-button-small"
+                  :title="editingTask === task.name ? 'Schließen' : 'Bearbeiten'"
+                  @click="openEdit(task)"
+              >
+                {{ editingTask === task.name ? '▲' : '▼' }}
+              </button>
+            </td>
+            <td class="task-name">{{ task.name }}</td>
+            <td class="task-row">{{ task.description }}</td>
+            <td class="task-priority">{{ task.priority }}</td>
+            <td class="task-row">
+              <button class="glas-button-small" @click="deleteTask(task.name)">
+                Löschen
+              </button>
+            </td>
+          </tr>
 
+          <!-- Ausklappbares Edit-Fenster -->
+          <tr v-if="editingTask === task.name" class="edit-row">
+            <td colspan="5">
+              <div class="edit-panel">
+                <TaskForm
+                    v-model="editData"
+                    :errors="errors"
+                    submit-label="Aktualisieren"
+                    @submit="handleUpdate"
+                    @cancel="cancelEdit"
+                />
+              </div>
+            </td>
+          </tr>
 
-            </tr>
-          </tbody>
-        </table>
-
-      </div>
+        </template>
+        </tbody>
+      </table>
     </div>
+
     <div v-else>
       Keine Tasks vorhanden.
     </div>
   </div>
-
 </template>
+
+<style scoped>
+.edit-row td {
+  padding: 0;
+}
+
+.edit-panel {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 0 0 8px 8px;
+}
+</style>
