@@ -22,20 +22,22 @@ onMounted(() => {
 <template>
   <div id="main-wrapper">
     <Navbar/>
-    <Window :title="'Navbar'" :footer="footer" :show-close="false" :window-window="'navbar-container'" :window-container="'main-container'">
-      <div class="navbar-item">
-        <button class="glas-button" type="button"
-                v-on:click="siteState = 0; console.log(siteState)">Dashboard
-        </button>
-      </div>
-      <div class="navbar-item">
-        <button class="glas-button" type="button"
-                v-on:click="siteState = 1; console.log(siteState)">Aufgaben
-        </button>
-      </div>
-      <div class="navbar-item">
-        <button class="glas-button" v-on:click="siteState = 2; console.log(siteState)">Kalender
-        </button>
+    <Window :title="'Navbar'" :footer="footer" :show-close="false" :window-window="'navbar-window'" :window-container="'navbar-container'">
+      <div class="navbar-items">
+        <div class="navbar-item">
+          <button class="glas-button" type="button"
+                  v-on:click="siteState = 0; console.log(siteState)">Dashboard
+          </button>
+        </div>
+        <div class="navbar-item">
+          <button class="glas-button" type="button"
+                  v-on:click="siteState = 1; console.log(siteState)">Aufgaben
+          </button>
+        </div>
+        <div class="navbar-item">
+          <button class="glas-button" v-on:click="siteState = 2; console.log(siteState)">Kalender
+          </button>
+        </div>
       </div>
     </Window>
 
@@ -43,7 +45,7 @@ onMounted(() => {
       <TaskView/>
     </Window>
 
-    <Window :title="'Dashboard'" :footer="footer" :show-close="true" v-if="siteState === 0" :window-window="'aufgaben-window'" :window-container="'aufgaben-container'">
+    <Window :title="'Dashboard'" :footer="footer" :show-close="true" v-if="siteState === 0" :window-window="'aufgaben-window'" :window-container="'dashboard-container'">
       <DashboardView/>
     </Window>
 
