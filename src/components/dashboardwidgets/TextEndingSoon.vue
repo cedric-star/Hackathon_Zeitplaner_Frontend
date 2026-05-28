@@ -35,7 +35,7 @@ function timestampToDMY(timestamp) {
 
 <template>
   <div id="text-header">
-    {{ title }}
+    Aufgaben enden bald:
   </div>
   <div id="task-list">
     <div class="task" v-for="task in tasks">
@@ -45,5 +45,10 @@ function timestampToDMY(timestamp) {
 </template>
 
 <style scoped>
-
+  #text-header {
+    font-weight: bold;
+  }
+  .task {
+    font-size: 11pt;
+  }
 </style>
