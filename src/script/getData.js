@@ -33,7 +33,25 @@ export async function getTasks(db) {
     return result.rows
 }
 
+export async function insertTask(db, task) {
+    let errors = {}
+    if (!task.name) { errors.name = "Please enter a name" }
+    if (!task.description) { errors.description = "Please enter a description" }
+    if (!task.priority) { task.priority = '1'} //lowes on default
+    if (!task.sub_tasks) { task.sub_tasks = null }
+    if (!task.tags) { task.tags = null }
+    if (!task.completed_time) { task.completed_time = null }
+    if ((!task.start_time && task.end_time) || (task.start_time && !task.end_time)) {
+        task.start_time = null
+        task.end_time = null
+    } else {
+        if (!task.start_time) { task.start_time = null }
+        if (!task.end_time) { task.end_time = null }
+    }
 
+
+
+}
 
 export async function insertTestData(db) {
     if (!db) return

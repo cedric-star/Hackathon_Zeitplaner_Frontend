@@ -20,7 +20,7 @@ const tasks = `
         start_time TIMESTAMPTZ,
         end_time TIMESTAMPTZ,
         completed_time TIMESTAMPTZ,
-        priority VARCHAR(1) NOT NULL CHECK (priority ~ '^[1-5]$')
+        priority VARCHAR(1) NOT NULL CHECK (priority ~ '^[1-5]$') default '1'
         );
 `;
 
