@@ -62,6 +62,7 @@ function removeSubTask(index) {
 </script>
 
 <template>
+
   <div v-if="!currentDb">Keine Datenbankverbindung!</div>
   <div v-else-if="!isReady">Lade Datenbank...</div>
   <div v-else>
@@ -130,4 +131,5 @@ function removeSubTask(index) {
     </div>
     <div v-else>Keine Tasks vorhanden.</div>
   </div>
+
 </template>

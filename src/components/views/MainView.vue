@@ -6,6 +6,7 @@ import CalenderView from "./CalenderView.vue";
 import Navbar from "../bars/Navbar.vue";
 import Footer from "../bars/Footer.vue";
 import {watch, nextTick} from "vue";
+import Window from "../Window.vue";
 
 const siteState = ref(0);
 provide("siteState", siteState);
@@ -107,7 +108,7 @@ watch(showAufgabenContainer, (val) => {
 <template>
   <div id="main-wrapper">
     <Navbar/>
-
+    <Window :title="MyTestWin"/>
 
     <div class="glas main-container" id="main-container">
       <div id="navbar-container">
