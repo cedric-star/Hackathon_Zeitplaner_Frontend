@@ -15,19 +15,9 @@ async function handleLogin(db) {
   showLogin.value = false;
 }
 
-const footer = ref();
-
-onMounted(() => {
-  footer.value = document.getElementById("app-footer");
-})
-
 </script>
 
 <template>
-  <!--LoginView v-if="showLogin" @login="handleLogin" />
-  <MainView v-else /-->
-  <Window :title="Test" :footer="footer">
-    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</p>
-  </Window>
-  <Footer id="app-footer"></Footer>
+  <LoginView v-if="showLogin" @login="handleLogin" />
+  <MainView v-else />
 </template>
