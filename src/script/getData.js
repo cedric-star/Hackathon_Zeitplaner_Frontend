@@ -49,7 +49,11 @@ export async function insertTask(db, task) {
         if (!task.end_time) { task.end_time = null }
     }
 
-
+    db.query(`
+        INSERT INTO tasks (name, description, start_time, end_time, completed_time, priority)
+        VALUES ($1, $2, $3, $4, NULL, $5);`,
+        [task.name, task.description, task.start, task.end, task.priority]
+    )
 
 }
 
