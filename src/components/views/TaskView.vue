@@ -66,24 +66,24 @@ function removeSubTask(index) {
   <div v-if="!currentDb">Keine Datenbankverbindung!</div>
   <div v-else-if="!isReady">Lade Datenbank...</div>
   <div v-else>
-    <button v-if="!inserting" @click="inserting = true">Neue Aufgabe</button>
+    <button class="glas-button-small" v-if="!inserting" @click="inserting = true">Neue Aufgabe</button>
     <div v-else>
 
       <!-- Name -->
       <div>
-        <input type="text" placeholder="Name *" v-model="newTask.name" />
+        <input class="glas-input" type="text" placeholder="Name *" v-model="newTask.name" />
         <span v-if="errors.name" style="color:red"> {{ errors.name }}</span>
       </div>
 
       <!-- Beschreibung -->
       <div>
-        <textarea placeholder="Beschreibung *" v-model="newTask.description" />
+        <textarea class="glas-input" placeholder="Beschreibung *" v-model="newTask.description" />
         <span v-if="errors.description" style="color:red"> {{ errors.description }}</span>
       </div>
 
       <!-- Priorität -->
       <div>
-        <select v-model="newTask.priority">
+        <select class="glas-button-small" v-model="newTask.priority">
           <option value="1">1 – Niedrig</option>
           <option value="2">2</option>
           <option value="3">3 – Mittel</option>
@@ -94,39 +94,56 @@ function removeSubTask(index) {
 
       <!-- Zeiten -->
       <div>
-        <label>Start: <input type="datetime-local" v-model="newTask.start_time" /></label>
-        <label>Ende: <input type="datetime-local" v-model="newTask.end_time" /></label>
+        <label>Start: <input class="glas-input" type="datetime-local" v-model="newTask.start_time" /></label>
+        <label>Ende: <input class="glas-input" type="datetime-local" v-model="newTask.end_time" /></label>
       </div>
 
       <!-- Tags -->
       <div>
         <strong>Tags</strong>
         <div v-for="(tag, i) in newTask.tags" :key="i">
-          <input type="text" placeholder="Tag-Name" v-model="tag.name" />
-          <input type="color" v-model="tag.color" />
+          <input class="glas-input" type="text" placeholder="Tag-Name" v-model="tag.name" />
+          <input class="glas-input" type="color" v-model="tag.color" />
           <button @click="removeTag(i)">✕</button>
         </div>
-        <button @click="addTag">+ Tag hinzufügen</button>
+        <button class="glas-button-small" @click="addTag">+ Tag hinzufügen</button>
       </div>
 
       <!-- Sub-Tasks -->
       <div>
         <strong>Unteraufgaben</strong>
         <div v-for="(sub, i) in newTask.sub_tasks" :key="i">
-          <input type="text" placeholder="Unteraufgabe" v-model="sub.name" />
-          <button @click="removeSubTask(i)">✕</button>
+          <input class="glas-input" type="text" placeholder="Unteraufgabe" v-model="sub.name" />
+          <button class="glas-button-small" @click="removeSubTask(i)">✕</button>
         </div>
-        <button @click="addSubTask">+ Unteraufgabe hinzufügen</button>
+        <button class="glas-button-small" @click="addSubTask">+ Unteraufgabe hinzufügen</button>
       </div>
 
       <br />
-      <button @click="handleSaveNew">Speichern</button>
-      <button @click="inserting = false">Abbrechen</button>
+      <button class="glas-button-small" @click="handleSaveNew">Speichern</button>
+      <button class="glas-button-small" @click="inserting = false">Abbrechen</button>
     </div>
 
     <div v-if="tasks.length">
-      <div v-for="(task, index) in tasks" :key="index">
-        {{ task.name }}
+      <div class="task-list">
+        <table>
+          <tr>
+            <th>Task Name</th>
+            <th>Description</th>
+            <th>Priority</th>
+
+          </tr>
+          <tr
+              v-for="task in tasks"
+          >
+            <td class="task-name">{{ task.name }}</td>
+            <td class="task-row">{{ task.description }}</td>
+            <td class="task-priority">{{ task.priority }}</td>
+
+
+          </tr>
+        </table>
+
       </div>
     </div>
     <div v-else>

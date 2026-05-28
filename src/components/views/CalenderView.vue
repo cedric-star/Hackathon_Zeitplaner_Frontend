@@ -45,4 +45,65 @@ onBeforeMount(async () => {
 
 <style scoped>
 
+:deep(.vuecal) {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(8px);
+
+  border-radius: 12px;
+
+  color: white;
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  overflow: hidden;
+}
+
+/* Header */
+:deep(.vuecal__title-bar) {
+  background: rgba(255,255,255,0.1);
+
+  backdrop-filter: blur(6px);
+
+  color: white;
+
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Tageszellen */
+:deep(.vuecal__cell) {
+  background: rgba(255,255,255,0.03);
+
+  border: 1px solid rgba(255,255,255,0.04);
+
+  transition: 0.2s;
+}
+
+/* Hover */
+:deep(.vuecal__cell:hover) {
+  background: rgba(255,255,255,0.12);
+}
+
+/* Events */
+:deep(.vuecal__event) {
+  background: rgba(80,120,255,0.5);
+
+  border: none;
+
+  border-radius: 8px;
+
+  backdrop-filter: blur(4px);
+
+  color: white;
+}
+
+/* Uhrzeiten links */
+:deep(.vuecal__time-column) {
+  background: rgba(0,0,0,0.15);
+}
+
+/* Heute */
+:deep(.vuecal__cell--today) {
+  background: rgba(80,120,255,0.18);
+}
+
 </style>
