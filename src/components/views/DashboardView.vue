@@ -4,6 +4,7 @@ import {onMounted, ref} from "vue";
   import DraggableCard from "../DraggableCard.vue";
   import {Chart, registerables} from "chart.js";
 import {createLineChart, createPieChart} from "../../script/chartPresets.js";
+import ChartFinishedTasks from "../dashboardwidgets/ChartFinishedTasks.vue";
   Chart.register(...registerables);
 
   function dragstartHandler(ev) {
@@ -47,7 +48,7 @@ import {createLineChart, createPieChart} from "../../script/chartPresets.js";
     </div>
     <div id="droppable-zone-right" v-on:drop="dropHandler" v-on:dragover="dragoverHandler">
       <div id="dragbar2" draggable="true" v-on:dragstart="dragstartHandler">
-        <canvas id="myChart"></canvas>
+        <ChartFinishedTasks/>
       </div>
       <div id="dragbar3" draggable="true" v-on:dragstart="dragstartHandler">
         <canvas id="myChart2"></canvas>
