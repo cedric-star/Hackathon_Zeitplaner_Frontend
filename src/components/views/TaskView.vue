@@ -1,5 +1,6 @@
 <script setup>
 import { ref, inject, onMounted } from "vue"
+import {getTasks, insertTestData} from "../../script/getData.js";
 
 const currentDb = inject("pglite")
 const tasks = ref([])
@@ -13,31 +14,12 @@ onMounted(async () => {
   await db.waitReady
   isReady.value = true
 
-  try {
-    const result = await db.query(`SELECT * FROM tasks ORDER BY name`)
-    tasks.value = result.rows
-  } catch (err) {
-    console.error("Error loading tasks:", err)
-  }
+  await insertTestData(db)
+  await loadTasks()
 })
 
 async function loadTasks() {
-  const db = currentDb.value
-  if (!db || !isReady.value) return
-  const result = await db.query(`SELECT * FROM tasks ORDER BY name`)
-  tasks.value = result.rows
-}
-
-async function insertTest() {
-  const db = currentDb.value
-  if (!db || !isReady.value || !name.value.trim()) return
-  await db.query(
-      `INSERT INTO tasks (name, description, start_time, end_time, completed_time, priority)
-     VALUES ($1, 'Plan...', '2025-01-15 09:00:00+01', '2025-01-15 17:00:00+01', '2025-01-15 17:00:00+01', '3')`,
-      [name.value]
-  )
-  await loadTasks()
-  name.value = ""
+  tasks.value = await getTasks(currentDb.value);
 }
 </script>
 
