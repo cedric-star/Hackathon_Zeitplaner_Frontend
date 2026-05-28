@@ -2,6 +2,7 @@
 import { ref, inject, onMounted } from "vue"
 import { getTasks, insertTask, updateTask } from "../../script/getData.js"
 import TaskForm from "../TaskForm.vue"
+import {color} from "chart.js/helpers";
 
 const currentDb = inject("pglite")
 const tasks = ref([])
@@ -92,6 +93,13 @@ async function deleteTask(name) {
     errors.value.delete = error.message
   }
 }
+
+function hexToRgba(hex, alpha = 0.2) {
+  const r = parseInt(hex.slice(1, 3), 16)
+  const g = parseInt(hex.slice(3, 5), 16)
+  const b = parseInt(hex.slice(5, 7), 16)
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`
+}
 </script>
 
 <template>
@@ -124,6 +132,7 @@ async function deleteTask(name) {
           <th>Task Name</th>
           <th>Beschreibung</th>
           <th>Priorität</th>
+          <th>Tags</th>
           <th>Löschen</th>
         </tr>
         </thead>
@@ -145,6 +154,8 @@ async function deleteTask(name) {
             <td class="task-name">{{ task.name }}</td>
             <td class="task-row">{{ task.description }}</td>
             <td class="task-priority">{{ task.priority }}</td>
+            <td class="task-row">
+              <p v-for="tag in task.tags" :style="{ backgroundColor: hexToRgba(tag.color, 0.2), color: tag.color, padding: '4px', borderRadius: '8px' }">{{ tag.name }}</p>            </td>
             <td class="task-row">
               <button class="glas-button-small" @click="deleteTask(task.name)">
                 Löschen
