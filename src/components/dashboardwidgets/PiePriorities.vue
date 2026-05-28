@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 
 import {inject, onBeforeMount, onMounted, ref} from "vue";
 import {createLineChart, createPieChart} from "../../script/chartPresets.js";
@@ -18,27 +18,23 @@ onMounted(async () => {
   tasks.value = await getTasks(currentDb.value);
 
   await db.live.query(`
-    SELECT COUNT(*) AS amount, DATE(completed_time) AS completed_day
-    FROM tasks WHERE completed_time IS NOT NULL
-    GROUP BY completed_day ORDER BY completed_day
-  `, [], (results) => {
+      SELECT COUNT(*) AS amount, priority
+      FROM tasks
+      GROUP BY priority ORDER BY priority
+      `, [], (results) => {
     tasks.value = results.rows;
     data.value = tasks.value.map(task => task.amount);
-    labels.value = tasks.value.map(task => timestampToDMY(task.completed_day));
-    const title = "Aufgaben pro Tag erledigt"
+    labels.value = tasks.value.map(task => task.priority);
+    const title = "Aufteilung deiner Prioritäten"
     if(myChart) myChart.destroy()
-    myChart = createLineChart(title, labels.value, data.value, document.getElementById('finishedChart'));
+    myChart = createPieChart(title, labels.value, data.value, document.getElementById('prioPie'));
   })
 })
-
-function timestampToDMY(timestamp) {
-  return timestamp.getDate() + "." + (timestamp.getMonth() + 1) + "." + timestamp.getFullYear();
-}
 
 </script>
 
 <template>
-  <canvas id="finishedChart"></canvas>
+  <canvas id="prioPie"></canvas>
 </template>
 
 <style scoped>

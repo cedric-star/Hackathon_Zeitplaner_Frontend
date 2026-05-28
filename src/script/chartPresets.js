@@ -1,7 +1,7 @@
 import {Chart} from "chart.js";
 
 export function createLineChart(title, labels, data, ctx) {
-    new Chart(ctx, {
+    return new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
@@ -30,7 +30,7 @@ export function createLineChart(title, labels, data, ctx) {
 }
 
 export function createPieChart(title, labels, data, ctx) {
-    new Chart(ctx, {
+    return new Chart(ctx, {
         type: 'pie',
         data: {
             labels: labels,
@@ -49,6 +49,9 @@ export function createPieChart(title, labels, data, ctx) {
                 title: {
                     display: true,
                     text: title,
+                },
+                colors: {
+                    forceOverride: true
                 }
             }
         }

@@ -5,6 +5,7 @@ import {onMounted, ref} from "vue";
   import {Chart, registerables} from "chart.js";
 import {createLineChart, createPieChart} from "../../script/chartPresets.js";
 import ChartFinishedTasks from "../dashboardwidgets/ChartFinishedTasks.vue";
+import PiePriorities from "../dashboardwidgets/PiePriorities.vue";
   Chart.register(...registerables);
 
   function dragstartHandler(ev) {
@@ -26,18 +27,13 @@ import ChartFinishedTasks from "../dashboardwidgets/ChartFinishedTasks.vue";
 <template>
   <div id="big-wrapper">
     <div id="droppable-zone-left" v-on:drop="dropHandler" v-on:dragover="dragoverHandler">
-      <div id="dragbar" draggable="true" v-on:dragstart="dragstartHandler">
-        <DraggableCard>
-          Draggisierbar
-          <template v-slot:content>
-            <br>MyDinge
-          </template>
-        </DraggableCard>
-      </div>
     </div>
     <div id="droppable-zone-right" v-on:drop="dropHandler" v-on:dragover="dragoverHandler">
       <div id="dragbar2" draggable="true" v-on:dragstart="dragstartHandler">
         <ChartFinishedTasks/>
+      </div>
+      <div id="dragbar3" draggable="true" v-on:dragstart="dragstartHandler">
+        <PiePriorities/>
       </div>
     </div>
   </div>

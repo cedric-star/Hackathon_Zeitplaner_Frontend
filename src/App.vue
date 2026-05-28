@@ -4,6 +4,7 @@ import MainView from "./components/views/MainView.vue";
 import LoginView from "./components/views/LoginView.vue";
 import Window from "./components/Window.vue";
 import Footer from "./components/bars/Footer.vue";
+import {Chart} from "chart.js";
 
 const showLogin = ref(true);
 const currentDb = ref(null);
@@ -14,6 +15,10 @@ async function handleLogin(db) {
   await nextTick();
   showLogin.value = false;
 }
+
+Chart.defaults.backgroundColor = '#9BD0F5';
+Chart.defaults.borderColor = '#ddeff4';
+Chart.defaults.color = '#ffffff';
 
 </script>
 
