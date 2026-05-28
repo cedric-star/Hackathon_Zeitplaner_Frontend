@@ -1,30 +1,42 @@
 <script setup>
 
-  import { VueCal, addDatePrototypes } from 'vue-cal'
-  import 'vue-cal/style'
-  import {reactive} from "vue";
+import { VueCal, addDatePrototypes } from 'vue-cal'
+import 'vue-cal/style'
+import {inject, onBeforeMount, reactive, ref} from "vue";
+import {getTasks} from "../../script/getData.js";
 
-  addDatePrototypes();
+addDatePrototypes();
 
-  const config = {
-    hideWeekends: false,
-    time: true,
-    dark: true,
+const config = {
+  hideWeekends: false,
+  time: true,
+  dark: true,
+  editable: false,
+}
+
+const currentDb = inject("pglite");
+let events = ref([]);
+let tasks = ref([]);
+
+function task2Event(task) {
+  return {
+    id: task.id,
+    start: new Date(task.start_time),
+    end: new Date(task.end_time),
+    title: task.name,
   }
+}
 
-  function transformTaskToEvent(task) {
-    return reactive({
-      start: new Date(task.start),
-      end: new Date(task.end),
-      title: task.title,
-    })
-  }
+onBeforeMount(async () => {
+  const db = currentDb.value
+  if (!db) return
+  await db.waitReady
+  tasks.value = await getTasks(currentDb.value);
 
-  let events = [];
-  let tasks = [];
-
-  tasks.forEach(task => { events.push( transformTaskToEvent(task) ); });
-
+  events.value = tasks.value
+      .filter(task => task.start_time && task.end_time)
+      .map(task => task2Event(task));
+})
 </script>
 
 <template>
