@@ -53,8 +53,9 @@ import ChartFinishedTasks from "../dashboardwidgets/ChartFinishedTasks.vue";
   }
 
   #droppable-zone-left, #droppable-zone-right {
-    width: 45%;
-    border: #1f2028 2px solid;
+    width: 100%;
+    border: 2px solid;
+    border-color: rgb(252 253 253 / 0.14);
     border-radius: 5px;
   }
 </style>

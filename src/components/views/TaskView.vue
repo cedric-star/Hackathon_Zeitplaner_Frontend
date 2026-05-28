@@ -34,7 +34,7 @@ async function loadTasks() {
         v-model="name"
         @keyup.enter="insertTest"
     />
-    <button @click="insertTest">Test Insert</button>
+    <button class="glas-button-small" @click="insertTest">Test Insert</button>
 
     <div v-if="tasks.length">
       <div v-for="(task, index) in tasks" :key="index">

@@ -110,26 +110,26 @@ watch(showAufgabenContainer, (val) => {
 
 
     <div class="glas main-container" id="main-container">
-      <div id="navbar-container">
-        <div class="aero-title-bar">
-          <span class="aero-title-bar-text">Dashboard</span>
-          <div class="navbar-item">
-            <button class="frutiger-aero-button small" type="button"
-                    v-on:click="siteState = 0; console.log(siteState)">Dashboard
-            </button>
-          </div>
-          <div class="navbar-item">
-            <button class="frutiger-aero-button small" type="button"
-                    v-on:click="siteState = 1; console.log(siteState)">Aufgaben
-            </button>
-          </div>
-          <div class="navbar-item">
-            <button class="frutiger-aero-button small" v-on:click="siteState = 2; console.log(siteState)">Kalender
-            </button>
-          </div>
-        </div>
-        Test test test
+      <div class="aero-title-bar">
+        <span class="aero-title-bar-text">Navbar</span>
       </div>
+      <div id="navbar-container">
+        <div class="navbar-item">
+          <button class="glas-button" type="button"
+                  v-on:click="siteState = 0; console.log(siteState)">Dashboard
+          </button>
+        </div>
+        <div class="navbar-item">
+          <button class="glas-button" type="button"
+                  v-on:click="siteState = 1; console.log(siteState)">Aufgaben
+          </button>
+        </div>
+        <div class="navbar-item">
+          <button class="glas-button" v-on:click="siteState = 2; console.log(siteState)">Kalender
+          </button>
+        </div>
+      </div>
+      Test test test
     </div>
 
 
@@ -142,9 +142,7 @@ watch(showAufgabenContainer, (val) => {
           <span class="aero-title-bar-text">Dashboard</span>
           <button aria-label="Close" class="close" @click="showTestContainer = false">&#215;</button>
         </div>
-
-          <DashboardView v-if="siteState === 0"/>
-
+        <DashboardView v-if="siteState === 0"/>
       </div>
     </div>
 
