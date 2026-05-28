@@ -47,6 +47,10 @@ onMounted(() => {
       <DashboardView/>
     </Window>
 
+    <Window :title="Kalender" :footer="footer" v-if="siteState === 2">
+      <CalenderView/>
+    </Window>
+
     <Footer id="app-footer"></Footer>
   </div>
 </template>
