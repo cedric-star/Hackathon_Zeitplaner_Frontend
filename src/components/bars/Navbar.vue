@@ -2,7 +2,6 @@
 
 import {inject} from "vue";
 
-const siteState = inject("siteState");
 
 </script>
 

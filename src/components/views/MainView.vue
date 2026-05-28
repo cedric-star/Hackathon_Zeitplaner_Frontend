@@ -8,8 +8,20 @@ import Footer from "../bars/Footer.vue";
 import {watch, nextTick} from "vue";
 import Window from "../Window.vue";
 
-const siteState = ref(0);
-provide("siteState", siteState);
+const showDashboard = ref(false);
+const showTasks = ref(false);
+const showCalender = ref(false);
+function closeDashboard() {
+  showDashboard.value = false;
+}
+
+function closeTasks() {
+  showTasks.value = false;
+}
+
+function closeCalender() {
+  showCalender.value = false;
+}
 
 const footer = ref();
 
@@ -22,31 +34,57 @@ onMounted(() => {
 <template>
   <div id="main-wrapper">
     <Navbar/>
-    <Window :title="'Navbar'" :footer="footer" :show-close="false" :window-window="'navbar-window'" :window-container="'navbar-container'">
+    <Window :title="'Navbar'" :footer="footer" :show-close="false" :window-window="'navbar-container'" :window-container="'main-container'">
       <div class="navbar-items">
         <div class="navbar-item">
           <button class="glas-button" type="button"
-                  v-on:click="siteState = 0; console.log(siteState)">Dashboard
+                  v-on:click="showDashboard = true; console.log(siteState)">Dashboard
           </button>
         </div>
         <div class="navbar-item">
           <button class="glas-button" type="button"
-                  v-on:click="siteState = 1; console.log(siteState)">Aufgaben
+                  v-on:click="showTasks = true; console.log(siteState)">Aufgaben
           </button>
         </div>
         <div class="navbar-item">
-          <button class="glas-button" v-on:click="siteState = 2; console.log(siteState)">Kalender
+          <button class="glas-button" v-on:click="showCalender = true; console.log(siteState)">Kalender
           </button>
         </div>
       </div>
     </Window>
 
-    <Window :title="'Tasks'" :footer="footer" :show-close="true" :window-window="'dashboard-window'" :window-container="'dashboard-container'" v-if="siteState === 1">
+    <Window
+        v-if="showTasks"
+        :title="'Tasks'"
+        :footer="footer"
+        :show-close="true"
+        :window-window="'dashboard-window'"
+        :window-container="'dashboard-container'"
+        @close="closeTasks"
+    >
       <TaskView/>
     </Window>
 
-    <Window :title="'Dashboard'" :footer="footer" :show-close="true" v-if="siteState === 0" :window-window="'aufgaben-window'" :window-container="'dashboard-container'">
+    <Window
+        v-if="showDashboard"
+        :title="'Dashboard'"
+        :footer="footer"
+        :show-close="true"
+        :window-window="'aufgaben-window'"
+        :window-container="'aufgaben-container'"
+        @close="closeDashboard"
+    >
       <DashboardView/>
+    </Window>
+
+    <Window
+        v-if="showCalender"
+        :title="'Kalender'"
+        :footer="footer"
+        :show-close="true"
+        @close="closeCalender"
+    >
+      <CalenderView/>
     </Window>
 
     <Footer id="app-footer"></Footer>
