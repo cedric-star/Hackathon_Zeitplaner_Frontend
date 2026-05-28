@@ -2,7 +2,7 @@ export async function getTasks(db) {
     if (!db) return
 
     const result = await db.query(`
-        SELECT 
+        SELECT
             t.name,
             t.description,
             t.start_time,
@@ -10,20 +10,20 @@ export async function getTasks(db) {
             t.completed_time,
             t.priority,
             COALESCE(
-                json_agg(DISTINCT jsonb_build_object('name', tags.name, 'color', tags.color)) 
-                FILTER (WHERE tags.name IS NOT NULL), 
-                '[]'::json
+                    json_agg(DISTINCT jsonb_build_object('name', tags.name, 'color', tags.color))
+                    FILTER (WHERE tags.name IS NOT NULL),
+                    '[]'::json
             ) as tags,
             COALESCE(
-                json_agg(DISTINCT jsonb_build_object('id', st.id, 'name', st.name, 'is_completed', st.is_completed)) 
-                FILTER (WHERE st.id IS NOT NULL), 
-                '[]'::json
+                    json_agg(DISTINCT jsonb_build_object('id', st.id, 'name', st.name, 'is_completed', st.is_completed))
+                    FILTER (WHERE st.id IS NOT NULL),
+                    '[]'::json
             ) as sub_tasks
         FROM tasks t
-        LEFT JOIN task_tags tt ON t.name = tt.task_name
-        LEFT JOIN tags ON tt.tag_name = tags.name
-        LEFT JOIN task_sub_tasks tst ON t.name = tst.task_name
-        LEFT JOIN sub_tasks st ON tst.sub_task_id = st.id
+                 LEFT JOIN task_tags tt ON t.name = tt.task_name
+                 LEFT JOIN tags ON tt.tag_name = tags.name
+                 LEFT JOIN task_sub_tasks tst ON t.name = tst.task_name
+                 LEFT JOIN sub_tasks st ON tst.sub_task_id = st.id
         GROUP BY t.name
         ORDER BY t.name
     `)
@@ -49,12 +49,12 @@ export async function insertTask(db, task) {
         await db.query(`
             INSERT INTO tasks (name, description, start_time, end_time, completed_time, priority)
             VALUES ($1, $2, $3, $4, $5, $6)
-            ON CONFLICT (name) DO UPDATE
-                SET description    = EXCLUDED.description,
-                    start_time     = EXCLUDED.start_time,
-                    end_time       = EXCLUDED.end_time,
-                    completed_time = EXCLUDED.completed_time,
-                    priority       = EXCLUDED.priority
+                ON CONFLICT (name) DO UPDATE
+                                          SET description    = EXCLUDED.description,
+                                          start_time     = EXCLUDED.start_time,
+                                          end_time       = EXCLUDED.end_time,
+                                          completed_time = EXCLUDED.completed_time,
+                                          priority       = EXCLUDED.priority
         `, [task.name, task.description, start, end, completed, priority])
 
         // ── 2. Sub-Tasks: alte löschen, neue anlegen ─────────────────────
@@ -84,7 +84,7 @@ export async function insertTask(db, task) {
             if (!tag.name) continue
             await db.query(
                 `INSERT INTO tags (name, color) VALUES ($1, $2)
-                 ON CONFLICT (name) DO UPDATE SET color = EXCLUDED.color`,
+                    ON CONFLICT (name) DO UPDATE SET color = EXCLUDED.color`,
                 [tag.name, tag.color]
             )
             await db.query(
@@ -98,8 +98,25 @@ export async function insertTask(db, task) {
     }
 }
 
-// Alias – der View kann weiterhin updateTask aufrufen
-export const updateTask = insertTask
+export async function updateTask(db, task) {
+    const originalName = task._originalName
+    const nameChanged  = originalName && originalName !== task.name
+
+    if (nameChanged) {
+        const oldSubs = await db.query(
+            `SELECT sub_task_id FROM task_sub_tasks WHERE task_name = $1`, [originalName]
+        )
+        await db.query(`DELETE FROM task_sub_tasks WHERE task_name = $1`, [originalName])
+        await db.query(`DELETE FROM task_tags      WHERE task_name = $1`, [originalName])
+        for (const { sub_task_id } of oldSubs.rows) {
+            await db.query(`DELETE FROM sub_tasks WHERE id = $1`, [sub_task_id])
+        }
+        await db.query(`DELETE FROM tasks WHERE name = $1`, [originalName])
+    }
+
+    const { _originalName: _, ...cleanTask } = task
+    return insertTask(db, cleanTask)
+}
 
 export async function insertTestData(db) {
     if (!db) return
@@ -171,5 +188,16 @@ export async function insertTestData(db) {
         console.log("Testdaten erfolgreich eingefügt")
     } catch (error) {
         console.error("Fehler beim Einfügen der Testdaten:", error)
+    }
+}
+
+export async function toggleSubTask(db, subTaskId, isCompleted) {
+    try {
+        await db.query(
+            `UPDATE sub_tasks SET is_completed = $1 WHERE id = $2`,
+            [isCompleted, subTaskId]
+        )
+    } catch (e) {
+        console.error("toggleSubTask Fehler:", e)
     }
 }

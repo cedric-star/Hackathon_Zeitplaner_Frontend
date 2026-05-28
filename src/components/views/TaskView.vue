@@ -108,6 +108,7 @@ async function deleteTask(name) {
       <TaskForm
           v-model="newTask"
           :errors="errors"
+          :is-edit="false"
           submit-label="Erstellen"
           @submit="handleSaveNew"
           @cancel="inserting = false; errors = {}"
@@ -158,6 +159,7 @@ async function deleteTask(name) {
                 <TaskForm
                     v-model="editData"
                     :errors="errors"
+                    :isEdit="true"
                     submit-label="Aktualisieren"
                     @submit="handleUpdate"
                     @cancel="cancelEdit"

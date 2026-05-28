@@ -1,5 +1,6 @@
 <script setup>
 import { ref, watch } from "vue"
+import { toggleSubTask } from "../script/getData.js"
 
 const props = defineProps({
   modelValue: {
@@ -13,12 +14,13 @@ const props = defineProps({
   submitLabel: {
     type: String,
     default: "Speichern"
-  }
+  },
+  isEdit: Boolean,
+  db: Object   // pglite-Instanz für direktes Speichern der Checkbox
 })
 
 const emit = defineEmits(["update:modelValue", "submit", "cancel"])
 
-// Local copy to avoid mutating prop directly
 const local = ref({ ...props.modelValue })
 
 watch(() => props.modelValue, (val) => {
@@ -31,29 +33,35 @@ function update(field, value) {
 }
 
 function addTag() {
-  const tags = [...(local.value.tags || []), { name: "", color: "#000000" }]
-  update("tags", tags)
+  update("tags", [...(local.value.tags || []), { name: "", color: "#000000" }])
 }
 function removeTag(index) {
-  const tags = local.value.tags.filter((_, i) => i !== index)
-  update("tags", tags)
+  update("tags", local.value.tags.filter((_, i) => i !== index))
 }
 function updateTag(index, field, value) {
-  const tags = local.value.tags.map((t, i) => i === index ? { ...t, [field]: value } : t)
-  update("tags", tags)
+  update("tags", local.value.tags.map((t, i) => i === index ? { ...t, [field]: value } : t))
 }
 
 function addSubTask() {
-  const sub_tasks = [...(local.value.sub_tasks || []), { name: "" }]
-  update("sub_tasks", sub_tasks)
+  update("sub_tasks", [...(local.value.sub_tasks || []), { name: "", is_completed: false }])
 }
 function removeSubTask(index) {
-  const sub_tasks = local.value.sub_tasks.filter((_, i) => i !== index)
-  update("sub_tasks", sub_tasks)
+  update("sub_tasks", local.value.sub_tasks.filter((_, i) => i !== index))
 }
 function updateSubTask(index, value) {
-  const sub_tasks = local.value.sub_tasks.map((s, i) => i === index ? { ...s, name: value } : s)
-  update("sub_tasks", sub_tasks)
+  update("sub_tasks", local.value.sub_tasks.map((s, i) => i === index ? { ...s, name: value } : s))
+}
+
+// Checkbox: lokalen State updaten + sofort in DB schreiben wenn id vorhanden
+async function toggleCompleted(index, value) {
+  const sub = local.value.sub_tasks[index]
+  const updated = { ...sub, is_completed: value }
+  update("sub_tasks", local.value.sub_tasks.map((s, i) => i === index ? updated : s))
+
+  // Nur in DB schreiben wenn Sub-Task schon eine id hat (also bereits gespeichert)
+  if (sub.id && props.db) {
+    await toggleSubTask(props.db, sub.id, value)
+  }
 }
 </script>
 
@@ -146,10 +154,17 @@ function updateSubTask(index, value) {
       <strong>Unteraufgaben</strong>
       <div v-for="(sub, i) in local.sub_tasks" :key="i" class="form-row--inline">
         <input
-            class="glas-input"
+            class="glas-button-small"
+            type="checkbox"
+            :checked="sub.is_completed"
+            @change="toggleCompleted(i, $event.target.checked)"
+        />
+        <input
+            class="glas-button-small"
             type="text"
             placeholder="Unteraufgabe"
             :value="sub.name"
+            :class="{ 'subtask-done': sub.is_completed }"
             @input="updateSubTask(i, $event.target.value)"
         />
         <button class="glas-button-small" @click="removeSubTask(i)">✕</button>
@@ -195,5 +210,10 @@ function updateSubTask(index, value) {
 .form-error {
   color: red;
   font-size: 0.8em;
+}
+
+.subtask-done {
+  text-decoration: line-through;
+  opacity: 0.5;
 }
 </style>
