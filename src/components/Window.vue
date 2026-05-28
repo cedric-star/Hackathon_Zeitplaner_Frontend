@@ -8,7 +8,14 @@ const props = defineProps({
   showClose: Boolean,
   windowContainer: String,
   windowWindow: String,
+  isOpen: Boolean,
 })
+
+const emit = defineEmits(['close']);
+function closeWindow() {
+  showWindow.value = false;
+  emit('close');  // Event an Parent senden
+}
 
 const windowRef = ref(null);
 
@@ -78,7 +85,7 @@ console.log(showWindow.value)
     <div class="glas" ref="windowRef" :id=props.windowWindow>
       <div class="aero-title-bar">
         <span class="aero-title-bar-text">{{props.title}}</span>
-        <button aria-label="Close" class="close" @click="showWindow = false" v-if="props.showClose">&#215;</button>
+        <button aria-label="Close" class="close" @click="closeWindow" v-if="props.showClose">&#215;</button>
       </div>
       <slot></slot>
     </div>
