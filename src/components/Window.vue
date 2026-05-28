@@ -7,10 +7,12 @@ const props = defineProps({
   footer: Element,
 })
 
+const windowRef = ref(null);
+
 onMounted(() => {
   const win = document.getElementById("window-wrapper");
 
-  if (win) dragElement(win);
+  if (windowRef.value) dragElement(windowRef.value);
 });
 
 function dragElement(element) {
@@ -70,7 +72,7 @@ console.log(showWindow.value)
 
 <template>
   <div class="dashboard-container" id="dashboard-container" v-if="showWindow === true">
-    <div class="glas" id="window-wrapper">
+    <div class="glas" ref="windowRef">
       <div class="aero-title-bar">
         <span class="aero-title-bar-text">{{props.title}}</span>
         <button aria-label="Close" class="close" @click="showWindow = false">&#215;</button>
