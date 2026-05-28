@@ -24,17 +24,17 @@ onMounted(() => {
     <Navbar/>
     <Window :title="'Navbar'" :footer="footer">
       <div class="navbar-item">
-        <button class="frutiger-aero-button small" type="button"
+        <button class="glas-button" type="button"
                 v-on:click="siteState = 0; console.log(siteState)">Dashboard
         </button>
       </div>
       <div class="navbar-item">
-        <button class="frutiger-aero-button small" type="button"
+        <button class="glas-button" type="button"
                 v-on:click="siteState = 1; console.log(siteState)">Aufgaben
         </button>
       </div>
       <div class="navbar-item">
-        <button class="frutiger-aero-button small" v-on:click="siteState = 2; console.log(siteState)">Kalender
+        <button class="glas-button" v-on:click="siteState = 2; console.log(siteState)">Kalender
         </button>
       </div>
     </Window>
