@@ -155,7 +155,7 @@ function hexToRgba(hex, alpha = 0.2) {
             <td class="task-row">{{ task.description }}</td>
             <td class="task-priority">{{ task.priority }}</td>
             <td class="task-row">
-              <p v-for="tag in task.tags" :style="{ backgroundColor: hexToRgba(tag.color, 0.2), color: tag.color, padding: '4px', borderRadius: '8px' }">{{ tag.name }}</p>            </td>
+              <p v-for="tag in task.tags" :style="{ backgroundColor: hexToRgba(tag.color, 0.5), padding: '4px', borderRadius: '8px' }">{{ tag.name }}</p>            </td>
             <td class="task-row">
               <button class="glas-button-small" @click="deleteTask(task.name)">
                 Löschen
