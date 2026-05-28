@@ -30,13 +30,12 @@ async function handleSelect(dbName) {
 </script>
 
 <template>
-  <div class="aero-window" id="login-window">
+  <div class="glas" id="login-window">
     <div class="aero-title-bar">
-      <span class="aero-title-icon"></span>
       <span class="aero-title-bar-text">Login</span>
 
     </div>
-    <div class="aero-window-body" id="login-body">
+    <div id="login-body">
       <h3>Profil auswählen</h3>
       <button v-for="entry in savedDbs" :key="entry.dbName" @click="handleSelect(entry.dbName)">
         {{ entry.userName }}

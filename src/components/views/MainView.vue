@@ -11,10 +11,12 @@ const siteState = ref(0);
 provide("siteState", siteState);
 onMounted(() => {
   const main = document.getElementById("main-container");
-  const test = document.getElementById("dashboard-window");
+  const dashboard = document.getElementById("dashboard-window");
+  const aufgaben = document.getElementById("aufgaben-window");
 
   if (main) dragElement(main);
-  if (test) dragElement(test);
+  if (dashboard) dragElement(dashboard);
+  if (aufgaben) dragElement(aufgaben);
 });
 
 function dragElement(elmnt) {
@@ -84,79 +86,93 @@ watch(showTestContainer, (val) => {
     });
   }
 });
+
+const showAufgabenContainer = ref(true);
+provide("showAufgabenContainer", showAufgabenContainer);
+watch(siteState, (newVal) => {
+  if (newVal === 0) {
+    showAufgabenContainer.value = true;
+  }
+});
+watch(showAufgabenContainer, (val) => {
+  if (val) {
+    nextTick(() => {
+      const test = document.getElementById("aufgaben-window");
+      if (test) dragElement(test);
+    });
+  }
+});
 </script>
 
 <template>
   <div id="main-wrapper">
     <Navbar/>
 
+
     <div class="glas main-container" id="main-container">
-          <div id="navbar-container">
-            <div class="aero-title-bar">
-
-              <span class="aero-title-bar-text">Dashboard</span>
-            <div class="navbar-item">
-              <button class="frutiger-aero-button small" type="button"
-                      v-on:click="siteState = 0; console.log(siteState)">Dashboard
-              </button>
-            </div>
-            <div class="navbar-item">
-              <button class="frutiger-aero-button small" type="button"
-                      v-on:click="siteState = 1; console.log(siteState)">Aufgaben
-              </button>
-            </div>
-            <div class="navbar-item">
-              <button class="frutiger-aero-button small" v-on:click="siteState = 2; console.log(siteState)">Kalender
-              </button>
-            </div>
+      <div id="navbar-container">
+        <div class="aero-title-bar">
+          <span class="aero-title-bar-text">Dashboard</span>
+          <div class="navbar-item">
+            <button class="frutiger-aero-button small" type="button"
+                    v-on:click="siteState = 0; console.log(siteState)">Dashboard
+            </button>
           </div>
-          Test test test
-    </div>
-    </div>
-
-
-
-
-
-    <div class="glas dashboard-container" id="dashboard-container">
-        <div class="aero-window" id="dashboard-window" v-if="showTestContainer">
-          <div class="aero-title-bar">
-
-            <span class="aero-title-bar-text">Dashboard</span>
-
-              <button aria-label="Close" class="close" @click="showTestContainer = false">&#215;</button>
-            </div>
-
-          <div class="aero-window-body">
-
-            <DashboardView v-if="siteState === 0"/>
-
+          <div class="navbar-item">
+            <button class="frutiger-aero-button small" type="button"
+                    v-on:click="siteState = 1; console.log(siteState)">Aufgaben
+            </button>
+          </div>
+          <div class="navbar-item">
+            <button class="frutiger-aero-button small" v-on:click="siteState = 2; console.log(siteState)">Kalender
+            </button>
           </div>
         </div>
-
+        Test test test
+      </div>
     </div>
 
-    <div id="dashboard-container" >
-      <div class="aero-window" id="dashboard-window" v-if="showTestContainer">
+
+    <div class="dashboard-container" id="dashboard-container">
+      <div
+          class="glas"
+          id="dashboard-window"
+          v-if="showTestContainer">
+        <div class="aero-title-bar">
+          <span class="aero-title-bar-text">Dashboard</span>
+          <button aria-label="Close" class="close" @click="showTestContainer = false">&#215;</button>
+        </div>
+
+          <DashboardView v-if="siteState === 0"/>
+
+      </div>
+    </div>
+
+
+    <div class="aufgaben-container" id="dashboard-container">
+      <div
+          class="glas"
+          id="aufgaben-window"
+          v-if="showAufgabenContainer">
         <div class="aero-title-bar">
           <span class="aero-title-icon"></span>
           <span class="aero-title-bar-text">Aufgaben</span>
-          <div class="aero-title-bar-controls">
-            <button aria-label="Minimize">&#8212;</button>
-            <button aria-label="Maximize">&#9633;</button>
-            <button aria-label="Close" class="close" @click="showTestContainer = false">&#215;</button>
-          </div>
+          <button
+              aria-label="Close"
+              class="close"
+              @click="showAufgabenContainer = false">
+            &#215;
+          </button>
         </div>
         <div class="aero-window-body">
-
           <TaskView v-if="siteState === 1"/>
-
         </div>
       </div>
     </div>
+
+
     <Footer id="app-footer"></Footer>
   </div>
-
 </template>
 
 <style>
