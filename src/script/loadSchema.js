@@ -21,7 +21,7 @@ const tasks = `
         end_time TIMESTAMPTZ,
         completed_time TIMESTAMPTZ,
         priority VARCHAR(1) NOT NULL CHECK (priority ~ '^[1-5]$') default '1'
-        );
+    );
 `;
 
 const task_tags = `
@@ -29,7 +29,7 @@ const task_tags = `
         task_name VARCHAR(200) not null references tasks(name) on delete cascade,
         tag_name  VARCHAR(100) not null references tags(name)  on delete cascade,
         primary key (task_name, tag_name)
-        );
+    );
 `;
 
 const task_sub_tasks = `
@@ -37,7 +37,7 @@ const task_sub_tasks = `
         task_name VARCHAR(200) not null references tasks(name) on delete cascade,
         sub_task_id BIGINT not null references sub_tasks(id) on delete cascade,
         primary key (task_name, sub_task_id)
-        )
+    );
 `;
 
 const user = `
