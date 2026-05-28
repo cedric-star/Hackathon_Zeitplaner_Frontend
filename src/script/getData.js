@@ -49,12 +49,39 @@ export async function insertTask(db, task) {
         if (!task.end_time) { task.end_time = null }
     }
 
-    db.query(`
+    await db.query(`
         INSERT INTO tasks (name, description, start_time, end_time, completed_time, priority)
-        VALUES ($1, $2, $3, $4, NULL, $5);`,
-        [task.name, task.description, task.start, task.end, task.priority]
-    )
+        VALUES ($1, $2, $3, $4, $5, $6);`,
+        [task.name, task.description, task.start_time, task.end_time, task.completed_time, task.priority]    )
 
+    if (task.sub_tasks !== null) {
+        for (const sub of task.sub_tasks) {
+            const result = await db.query(
+                `INSERT INTO sub_tasks (name, is_completed) VALUES ($1, false) RETURNING id`,
+                [sub.name]
+            )
+            const subTaskId = result.rows[0].id
+
+            // Mit Task verknüpfen
+            await db.query(
+                `INSERT INTO task_sub_tasks (task_name, sub_task_id) VALUES ($1, $2)`,
+                [task.name, subTaskId]
+            )
+        }
+    }
+
+    if (task.tags !== null) {
+        for (const tag of task.tags) {
+            const result = await db.query(
+                `insert into tags (name, color) values ($1, $2)`,
+                [tag.name, tag.color]
+            )
+            await db.query(
+                `insert into task_tags (task_name, tag_name) values ($1, $2)`,
+                [task.name, tag.name]
+            )
+        }
+    }
 }
 
 export async function insertTestData(db) {
