@@ -172,13 +172,15 @@
     width: 30%;
     height: 40%;
     z-index: 12;
+    top: 40px;
+    left: 50%;
 }
 
 .dashboard-container {
     height: 50%;
     width: 33%;
     z-index: 5;
-
+    position: relative;
 }
 
 #dashboard-window {
@@ -189,11 +191,6 @@
 #aufgaben-window {
     top: 200px;
     left: 700px;
-}
-
-#main-container {
-    top: 40px;
-    left: 50%;
 }
 
 .glas {
@@ -224,7 +221,7 @@
 
 #navbar-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     margin: 1rem;

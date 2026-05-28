@@ -5,6 +5,9 @@ import {onMounted, ref} from 'vue';
 const props = defineProps({
   title: String,
   footer: Element,
+  showClose: Boolean,
+  windowContainer: String,
+  windowWindow: String,
 })
 
 const windowRef = ref(null);
@@ -45,7 +48,7 @@ function dragElement(element) {
     pos3 = e.clientX;
     pos4 = e.clientY;
 
-    const footer = props.footer;
+    const footer = document.querySelector('#app-footer');
     const footerTop = footer.getBoundingClientRect().top;
 
     let newTop = element.offsetTop - pos2;
@@ -71,11 +74,11 @@ console.log(showWindow.value)
 </script>
 
 <template>
-  <div class="dashboard-container" id="dashboard-container" v-if="showWindow === true">
-    <div class="glas" ref="windowRef">
+  <div :class=props.windowContainer v-if="showWindow === true">
+    <div class="glas" ref="windowRef" :id=props.windowWindow>
       <div class="aero-title-bar">
         <span class="aero-title-bar-text">{{props.title}}</span>
-        <button aria-label="Close" class="close" @click="showWindow = false">&#215;</button>
+        <button aria-label="Close" class="close" @click="showWindow = false" v-if="props.showClose">&#215;</button>
       </div>
       <slot></slot>
     </div>
