@@ -33,7 +33,7 @@ async function insertTest() {
   if (!db || !isReady.value || !name.value.trim()) return
   await db.query(
       `INSERT INTO tasks (name, description, start_time, end_time, completed_time, priority)
-     VALUES ($1, 'Plan...', '2024-01-15 09:00:00+01', '2024-01-15 17:00:00+01', '2024-01-15 17:00:00+01', '2')`,
+     VALUES ($1, 'Plan...', '2025-01-15 09:00:00+01', '2025-01-15 17:00:00+01', '2025-01-15 17:00:00+01', '3')`,
       [name.value]
   )
   await loadTasks()
