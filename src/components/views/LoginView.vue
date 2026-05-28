@@ -37,12 +37,12 @@ async function handleSelect(dbName) {
     </div>
     <div id="login-body">
       <h3>Profil auswählen</h3>
-      <button v-for="entry in savedDbs" :key="entry.dbName" @click="handleSelect(entry.dbName)">
+      <button class="glas-button-small" v-for="entry in savedDbs" :key="entry.dbName" @click="handleSelect(entry.dbName)">
         {{ entry.userName }}
       </button>
       <h3>Neu Erstellen</h3>
       <input v-model="newUserName" placeholder="Dein Name" />
-      <button @click="handleCreate">Erstellen</button>
+      <button class="glas-button" @click="handleCreate">Erstellen</button>
       <p v-if="errorMsg" style="color:red">{{ errorMsg }}</p>
       hallo welt
     </div>
