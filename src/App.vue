@@ -1,7 +1,9 @@
 <script setup>
-import { ref, provide, markRaw, nextTick } from "vue";
+import {ref, provide, markRaw, nextTick, onMounted} from "vue";
 import MainView from "./components/views/MainView.vue";
 import LoginView from "./components/views/LoginView.vue";
+import Window from "./components/Window.vue";
+import Footer from "./components/bars/Footer.vue";
 
 const showLogin = ref(true);
 const currentDb = ref(null);
@@ -12,9 +14,20 @@ async function handleLogin(db) {
   await nextTick();
   showLogin.value = false;
 }
+
+const footer = ref();
+
+onMounted(() => {
+  footer.value = document.getElementById("app-footer");
+})
+
 </script>
 
 <template>
-  <LoginView v-if="showLogin" @login="handleLogin" />
-  <MainView v-else />
+  <!--LoginView v-if="showLogin" @login="handleLogin" />
+  <MainView v-else /-->
+  <Window :title="Test" :footer="footer">
+    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr</p>
+  </Window>
+  <Footer id="app-footer"></Footer>
 </template>
