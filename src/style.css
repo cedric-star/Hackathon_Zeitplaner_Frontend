@@ -62,6 +62,7 @@
 .glas-button-small {
     font-size: 0.875rem;
     color: white;
+    margin: 10px;
 
     background: rgb(37 37 37 / 0.11);
     backdrop-filter: blur(5px);
@@ -83,6 +84,27 @@
     /* Prevent text selection */
     user-select: none;
     -webkit-user-select: none;
+
+}
+
+.glas-input {
+    background: rgb(51 75 122 / 0.5);
+    backdrop-filter: blur(5px);
+
+}
+
+input::placeholder {
+    color: white;
+}
+
+textarea::placeholder {
+    color: white;
+}
+
+.glas-button-small option {
+    background: #181f3c;
+    color: white;
+    padding: 10px;
 }
 
 .main-container {
@@ -92,8 +114,7 @@
 }
 
 .dashboard-container {
-    display: flex;
-    width: 100%;
+    position: absolute;
     z-index: 5;
 }
 
@@ -112,17 +133,23 @@
     left: 50%;
 }
 
+#calender-window {
+    top: 120px;
+    left: 700px;
+}
+
 .glas {
     position: absolute;
+    min-width: 500px;
+    min-height: 100px;
+    resize: both;
+    overflow: auto;
     color: white;
     background: rgba(84, 84, 90, 0.23);
     backdrop-filter: blur(5px);
     border-radius: 6px;
     text-align: center;
-    left: 40%;
-    transform: translateX(-50%);
-    box-shadow: inset 0 0 6px rgb(255 255 255 / 0.29),  rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-
+    box-shadow: inset 0 0 6px rgb(255 255 255 / 0.29), rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     background: linear-gradient(
             54deg,
             rgba(0, 0, 0, 0.13) 0 4%, rgba(102, 102, 102, 0.07) 6%, rgba(0, 0, 0, 0.13) 8% 10%,
@@ -167,6 +194,66 @@ button:hover {
     color: white;
 }
 
+.task-list {
+    border-radius: 12px;
+    overflow: hidden;
+
+    box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.task-list table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(8px);
+
+    color: white;
+}
+
+.task-list th {
+    background: rgba(255, 255, 255, 0.08);
+
+    padding: 1rem;
+
+    text-align: left;
+
+    font-weight: bold;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.task-list td {
+    padding: 0.9rem 1rem;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.task-list tr:hover td {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.task-list tr:last-child td {
+    border-bottom: none;
+}
+
+/* Erste Row */
+.task-row:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+/* Letzte Row */
+.task-row:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    border-bottom: none;
+}
+
+
 
 html, body {
     height: 100%;
@@ -186,7 +273,6 @@ html, body {
     align-items: center;
     border-radius: 5px 5px 0 0;
 }
-
 
 
 /* Title text — black with white glow for glass legibility */
@@ -240,15 +326,13 @@ html, body {
 }
 
 
-
 /* Close button */
 .aero-title-bar-controls button.close {
     color: white;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
     background: radial-gradient(circle at -60% 50%, rgba(0, 0, 0, 0.44) 5% 10%, transparent 50%),
-    radial-gradient(circle at 160% 50%, rgba(0, 0, 0, 0.44) 5% 10%, transparent 50%)}
-
-
+    radial-gradient(circle at 160% 50%, rgba(0, 0, 0, 0.44) 5% 10%, transparent 50%)
+}
 
 
 /* Window body — solid #f0f0f0 surface, inset 6px from glass border */
@@ -274,7 +358,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: inset 0 0 6px rgb(255 255 255 / 0.29),  rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    box-shadow: inset 0 0 6px rgb(255 255 255 / 0.29), rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
     background: linear-gradient(
             54deg,
             rgba(0, 0, 0, 0.13) 0 4%, rgba(102, 102, 102, 0.07) 6%, rgba(0, 0, 0, 0.13) 8% 10%,
