@@ -1,14 +1,21 @@
-<script setup>
+<script setup lang="ts">
 
-import {onMounted, ref} from "vue";
+  import {onMounted, ref} from "vue";
   import DraggableCard from "../DraggableCard.vue";
   import {Chart, registerables} from "chart.js";
-import {createLineChart, createPieChart} from "../../script/chartPresets.js";
-import ChartFinishedTasks from "../dashboardwidgets/ChartFinishedTasks.vue";
-import PiePriorities from "../dashboardwidgets/PiePriorities.vue";
+  import {createLineChart, createPieChart} from "../../script/chartPresets.js";
+  import ChartFinishedTasks from "../dashboardwidgets/ChartFinishedTasks.vue";
+  import PiePriorities from "../dashboardwidgets/PiePriorities.vue";
+  import TextEndingSoon from "../dashboardwidgets/TextEndingSoon.vue";
+
   Chart.register(...registerables);
 
-  function dragstartHandler(ev) {
+  const props = defineProps({
+    oneSided: Boolean,
+  })
+
+
+function dragstartHandler(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
   }
 
@@ -26,9 +33,14 @@ import PiePriorities from "../dashboardwidgets/PiePriorities.vue";
 
 <template>
   <div id="big-wrapper">
-    <div id="droppable-zone-left" v-on:drop="dropHandler" v-on:dragover="dragoverHandler">
+    <div id="droppable-zone-left" v-on:drop="dropHandler" v-on:dragover="dragoverHandler" v-if="!props.oneSided">
     </div>
-    <div id="droppable-zone-right" v-on:drop="dropHandler" v-on:dragover="dragoverHandler">
+    <div id="droppable-zone-right" v-on:drop="dropHandler" v-on:dragover="dragoverHandler" v-if="!props.oneSided">
+    </div>
+    <div id="droppable-zone-widgets" v-on:drop="dropHandler" v-on:dragover="dragoverHandler" v-if="props.oneSided">
+      <div id="dragbar1" draggable="true" v-on:dragstart="dragstartHandler">
+        <TextEndingSoon/>
+      </div>
       <div id="dragbar2" draggable="true" v-on:dragstart="dragstartHandler">
         <ChartFinishedTasks/>
       </div>

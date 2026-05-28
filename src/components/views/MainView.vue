@@ -9,6 +9,7 @@ import {watch, nextTick} from "vue";
 import Window from "../Window.vue";
 
 const showDashboard = ref(false);
+const showWidgetlist = ref(false);
 const showTasks = ref(false);
 const showCalender = ref(false);
 function closeDashboard() {
@@ -21,6 +22,10 @@ function closeTasks() {
 
 function closeCalender() {
   showCalender.value = false;
+}
+
+function closeWidgetlist() {
+  showWidgetlist.value = false;
 }
 
 const footer = ref();
@@ -38,7 +43,7 @@ onMounted(() => {
       <div class="navbar-items">
         <div class="navbar-item">
           <button class="glas-button" type="button"
-                  v-on:click="showDashboard = true; console.log(siteState)">Dashboard
+                  v-on:click="showDashboard = true; showWidgetlist = true; console.log(siteState)">Dashboard
           </button>
         </div>
         <div class="navbar-item">
@@ -74,7 +79,19 @@ onMounted(() => {
         :window-container="'aufgaben-container'"
         @close="closeDashboard"
     >
-      <DashboardView/>
+      <DashboardView :one-sided="false"/>
+    </Window>
+
+    <Window
+        v-if="showWidgetlist"
+        :title="'Widget-Toolbox'"
+        :footer="footer"
+        :show-close="true"
+        :window-window="'aufgaben-window'"
+        :window-container="'aufgaben-container'"
+        @close="closeWidgetlist"
+    >
+      <DashboardView :oneSided="true"/>
     </Window>
 
     <Window
